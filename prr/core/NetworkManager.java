@@ -1,4 +1,4 @@
-package prr.core;
+package core;
 
 import java.io.IOException;
 import java.io.FileNotFoundException;
@@ -14,9 +14,10 @@ import prr.core.exception.UnrecognizedEntryException;
  * Manage access to network and implement load/save operations.
  */
 public class NetworkManager {
-
+  private String _filename;
   /** The network itself. */
   private Network _network = new Network();
+
   //FIXME  addmore fields if needed
   
   public Network getNetwork() {

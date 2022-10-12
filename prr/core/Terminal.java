@@ -1,6 +1,7 @@
-package prr.core;
+package core;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 
 // FIXME add more import if needed (cannot import from pt.tecnico or prr.app)
 
@@ -11,10 +12,58 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
 
   /** Serial number for serialization. */
   private static final long serialVersionUID = 202208091753L;
-  
-  // FIXME define attributes
-  // FIXME define contructor(s)
-  // FIXME define methods
+  private final String _id;
+  private String _mode;
+  private String _oldState;
+  private double _payments;
+  private double _debit;
+  LinkedList<Terminal> _friends;
+
+  public abstract Terminal(String id, String type) {
+    _id = id;
+    _type = type;
+    _mode = "off";
+    _oldState = "off";
+    _payments = 0;
+    _debit = 0;
+    LinkedList<Terminal> _friends = new LinkedList<Terminal>();
+  }
+
+  public void makeSMS(Terminal to, String mensage) {
+    // FIXME acho q é preciso criar uma comunicação e tal
+  }
+
+  protected void acceptSMS(Terminal from) {
+    // FIXME implementar comunicações
+  }
+
+  public void makeVoiceCall(Terminal to) {
+    // FIXME implementar comunicações
+  }
+
+  protected void acceptVoiceCall(Terminal to) {
+    // FIXME implementar comunicações
+  }
+
+  public abstract void makeVideoCall(Terminal to);
+
+  protected abstract void acceptVideoCall(Terminal to);
+
+  public void endOngoingComunications(int size){
+    // FIXME implementar comunicações
+  }
+
+  public boolean setOnIdle(){
+    // FIXME implementar comunicações
+  }
+
+  public boolean setOnSilent(){
+    // FIXME implementar comunicações
+  }
+
+  public boolean turnOff(){
+    // FIXME implementar comunicações
+  }
   
   /**
    * Checks if this terminal can end the current interactive communication.
@@ -33,5 +82,9 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
    **/
   public boolean canStartCommunication() {
     // FIXME add implementation code
+  }
+
+  public void addFriend(Terminal term) {
+    _friends.addLast(term);
   }
 }
