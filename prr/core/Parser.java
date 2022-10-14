@@ -1,4 +1,4 @@
-package core;
+package prr.core;
 
 import java.io.Reader;
 import java.io.FileReader;
@@ -8,8 +8,8 @@ import java.io.BufferedReader;
 import java.util.Collection;
 import java.util.ArrayList;
 
-import core.exception.UnrecognizedEntryException;
-import core.exception.UnknownIdentifierException;
+import prr.core.exception.UnrecognizedEntryException;
+import prr.core.exception.UnknownIdentifierException;
 // import more exception core classes if needed
 
 /*

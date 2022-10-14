@@ -1,4 +1,4 @@
-package core;
+package prr.core;
 
 import java.io.IOException;
 import java.io.FileNotFoundException;

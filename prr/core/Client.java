@@ -1,4 +1,4 @@
-package core;
+package prr.core;
 
 import java.util.LinkedList;
 

@@ -1,4 +1,4 @@
-package core;
+package prr.core;
 
 public class BasicTerminal {
   public void makeVideoCall(Terminal to) {

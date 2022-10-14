@@ -1,4 +1,4 @@
-package core;
+package prr.core;
 
 public class BasicPlan extends TarrifPlan{
   protected double computeCost(Client cl, TextCommunication com) {

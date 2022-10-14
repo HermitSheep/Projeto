@@ -1,4 +1,4 @@
-package core;
+package prr.core;
 
 public enum NotificationType {
   O2S,
