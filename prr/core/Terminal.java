@@ -8,7 +8,7 @@ import java.util.LinkedList;
 /**
  * Abstract terminal.
  */
-abstract public class Terminal implements Serializable /* FIXME maybe addd more interfaces */{
+public abstract class Terminal implements Serializable /* FIXME maybe addd more interfaces */{
 
   /** Serial number for serialization. */
   private static final long serialVersionUID = 202208091753L;
@@ -19,7 +19,7 @@ abstract public class Terminal implements Serializable /* FIXME maybe addd more 
   private double _debit;
   LinkedList<Terminal> _friends;
 
-  public abstract Terminal(String id, String type) {
+  Terminal(String id, String type) {     //can an abstract class have a constructor? should it be private?
     _id = id;
     _type = type;
     _mode = "off";

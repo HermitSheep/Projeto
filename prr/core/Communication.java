@@ -1,6 +1,6 @@
 package core;
 
-public class Communication {
+public abstract class Communication {
   private int _id;
   private boolean _isPaid;
   double _cost;
