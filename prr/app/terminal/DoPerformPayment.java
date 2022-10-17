@@ -1,7 +1,7 @@
 package prr.app.terminal;
 
 import prr.core.Network;
-import prr.core.Terminal;
+import prr.core.Parser;
 import pt.tecnico.uilib.menus.CommandException;
 // Add more imports if needed
 
@@ -10,7 +10,7 @@ import pt.tecnico.uilib.menus.CommandException;
  */
 class DoPerformPayment extends TerminalCommand {
 
-  DoPerformPayment(Network context, Terminal terminal) {
+  DoPerformPayment(Network context, Parser.Terminal terminal) {
     super(Label.PERFORM_PAYMENT, context, terminal);
     //FIXME add command fields
   }

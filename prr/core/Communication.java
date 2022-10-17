@@ -6,15 +6,15 @@ public abstract class Communication {
   double _cost;
   boolean _isOngoing;
 
-  public void makeSMS(Terminal to, String message) {
+  public void makeSMS(Parser.Terminal to, String message) {
     //FIXME implement method
   }
 
-  protected void acceptSMS(Terminal from) {
+  protected void acceptSMS(Parser.Terminal from) {
     //FIXME implement method
   }
 
-  public void makeVoiceCall(Terminal to) {
+  public void makeVoiceCall(Parser.Terminal to) {
     //FIXME implement method
   }
 

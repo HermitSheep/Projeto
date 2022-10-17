@@ -1,8 +1,7 @@
 package prr.app.terminal;
 
 import prr.core.Network;
-import prr.core.Terminal;
-import pt.tecnico.uilib.forms.Form;
+import prr.core.Parser;
 import pt.tecnico.uilib.menus.CommandException;
 //FIXME add more imports if needed
 
@@ -11,7 +10,7 @@ import pt.tecnico.uilib.menus.CommandException;
  */
 class DoEndInteractiveCommunication extends TerminalCommand {
 
-  DoEndInteractiveCommunication(Network context, Terminal terminal) {
+  DoEndInteractiveCommunication(Network context, Parser.Terminal terminal) {
     super(Label.END_INTERACTIVE_COMMUNICATION, context, terminal, receiver -> receiver.canEndCurrentCommunication());
   }
   

@@ -1,7 +1,7 @@
 package prr.core;
 
 import java.io.Serializable;
-import java.util.LinkedList;
+import java.util.*;
 
 // FIXME add more import if needed (cannot import from pt.tecnico or prr.app)
 
@@ -13,20 +13,45 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
   /** Serial number for serialization. */
   private static final long serialVersionUID = 202208091753L;
   private final String _id;
-  private String _mode;
-  private String _oldState;
+  private TerminalMode _mode;
   private double _payments;
   private double _debit;
-  LinkedList<Terminal> _friends;
+  private List<Terminal> _friends;
+  private Client _client;
+  
 
-  Terminal(String id, String type) {     //can an abstract class have a constructor? should it be private?
+  Terminal(String id, String type, Client client) {     //can an abstract class have a constructor? should it be private?
     _id = id;
-    _type = type;
-    _mode = "off";
-    _oldState = "off";
+    //FIXME type
+    _mode = TerminalMode.OFF;
     _payments = 0;
     _debit = 0;
-    LinkedList<Terminal> _friends = new LinkedList<Terminal>();
+    ArrayList<Terminal> _friends = new ArrayList<Terminal>();
+    _client = client;
+  }
+
+  private String idGetter() {
+     return _id;
+  }
+
+  private TerminalMode modeGetter() {
+    return _mode;
+  }
+
+  private double paymentsGetter() {
+     return _payments;
+  }
+
+  private double debitGetter() {
+     return _debit;
+  }
+
+  private Client clientGetter() {
+     return _client;
+  }
+
+  private List<Terminal> friendsGetter() {
+     return _friends;
   }
 
   public void makeSMS(Terminal to, String mensage) {
@@ -85,6 +110,6 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
   }
 
   public void addFriend(Terminal term) {
-    _friends.addLast(term);
+    //FIXME
   }
 }

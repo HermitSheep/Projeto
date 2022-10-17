@@ -1,8 +1,8 @@
 package prr.core;
 
-import java.util.LinkedList;
+import java.util.*;
 
-import static core.ClientLevel.NORMAL;
+import static prr.core.ClientLevel.NORMAL;
 
 public class Client {
   private final String _key;
@@ -10,7 +10,7 @@ public class Client {
   private int _taxNumber;
   private ClientLevel _level;
   private boolean _receiveNotifications;
-  LinkedList<Terminal> _terminals;
+  private List<Terminal> _terminals;
 
   public Client(String key, String name, int taxNumber) {
     _key = key;
@@ -18,8 +18,10 @@ public class Client {
     _taxNumber = taxNumber;
     _level = NORMAL;
     _receiveNotifications = false;
-    LinkedList<Terminal> _terminals = new LinkedList<Terminal>();
+    ArrayList<Terminal> _terminals = new ArrayList<Terminal>();
   }
 
-
+  private int Getter() {
+     return _;
+  }
 }

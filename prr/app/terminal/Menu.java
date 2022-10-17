@@ -1,14 +1,14 @@
 package prr.app.terminal;
 
 import prr.core.Network;
-import prr.core.Terminal;
+import prr.core.Parser;
 
 /**
  * Terminal console menu.
  */
 public final class Menu extends pt.tecnico.uilib.menus.Menu {
 
-  public Menu(Network network, Terminal terminal) {
+  public Menu(Network network, Parser.Terminal terminal) {
     super(Label.TITLE, //
           new DoTurnOnTerminal(network, terminal), //
           new DoSilenceTerminal(network, terminal), //

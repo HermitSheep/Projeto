@@ -1,7 +1,7 @@
 package prr.app.terminal;
 
 import prr.core.Network;
-import prr.core.Terminal;
+import prr.core.Parser;
 import pt.tecnico.uilib.menus.CommandException;
 //FIXME add more imports if needed
 
@@ -10,7 +10,7 @@ import pt.tecnico.uilib.menus.CommandException;
  */
 class DoAddFriend extends TerminalCommand {
 
-  DoAddFriend(Network context, Terminal terminal) {
+  DoAddFriend(Network context, Parser.Terminal terminal) {
     super(Label.ADD_FRIEND, context, terminal);
     //FIXME add command fields
   }

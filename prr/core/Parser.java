@@ -1,15 +1,13 @@
 package prr.core;
 
-import java.io.Reader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.BufferedReader;
+import java.io.*;
 
-import java.util.Collection;
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 import prr.core.exception.UnrecognizedEntryException;
 import prr.core.exception.UnknownIdentifierException;
+
+  import static prr.core.ClientLevel.NORMAL;
 // import more exception core classes if needed
 
 /*
@@ -100,4 +98,23 @@ public class Parser {
       throw new UnrecognizedEntryException("Some message error in line:  " + line, e);
     }
   }
-}
+
+  public static class Client {
+    private final String _key;
+    private String _name;
+    private int _taxNumber;
+    private ClientLevel _level;
+    private boolean _receiveNotifications;
+    LinkedList<Terminal> _terminals;
+
+    public Client(String key, String name, int taxNumber) {
+      _key = key;
+      _name = name;
+      _taxNumber = taxNumber;
+      _level = NORMAL;
+      _receiveNotifications = false;
+      LinkedList<Terminal> _terminals = new LinkedList<Terminal>();
+    }
+
+
+  }

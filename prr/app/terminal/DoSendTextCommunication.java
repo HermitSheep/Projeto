@@ -1,9 +1,7 @@
 package prr.app.terminal;
 
 import prr.core.Network;
-import prr.core.Terminal;
-import prr.app.exception.UnknownTerminalKeyException;
-import pt.tecnico.uilib.forms.Form;
+import prr.core.Parser;
 import pt.tecnico.uilib.menus.CommandException;
 //FIXME add more imports if needed
 
@@ -12,7 +10,7 @@ import pt.tecnico.uilib.menus.CommandException;
  */
 class DoSendTextCommunication extends TerminalCommand {
 
-  DoSendTextCommunication(Network context, Terminal terminal) {
+  DoSendTextCommunication(Network context, Parser.Terminal terminal) {
     super(Label.SEND_TEXT_COMMUNICATION, context, terminal, receiver -> receiver.canStartCommunication());
   }
   
