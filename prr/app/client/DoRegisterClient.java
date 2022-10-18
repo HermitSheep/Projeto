@@ -13,11 +13,23 @@ class DoRegisterClient extends Command<Network> {
 
   DoRegisterClient(Network receiver) {
     super(Label.REGISTER_CLIENT, receiver);
-    //FIXME add command fields
+    addIntegerField("key", "Introduza a chave do cliente: ");
+    addStringField("name", "Introduza o nome do cliente: ");
+    addIntegerField("nif", "Introduza o nif do cliente: ");
   }
   
   @Override
   protected final void execute() throws CommandException {
-    //FIXME implement command
+    Integer key = integerField("key");
+    String name = stringField("name");
+    Integer nif = integerField("nif");
+    String message;
+
+    if (_receiver.addClient(key, name, nif))   //n sei se é suposto ser assim, ou com exceptions
+      message = "Terminal registado.";         //copiei o exemplo
+    else
+      message = "Terminal não adicionado";
+    
+    _display.popup(message);
   }
 }
