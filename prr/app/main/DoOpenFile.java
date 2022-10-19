@@ -22,7 +22,7 @@ class DoOpenFile extends Command<NetworkManager> {
     /*
       try {
       //FIXME implement command
-      } catch (UnavailableFileException | ClassNotFoundException e) {
+      } catch (UnavailableFileException e) {
         throw new FileOpenFailedException(e);
       }
     */  

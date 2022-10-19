@@ -26,16 +26,24 @@ public class Network implements Serializable {
   public Network(){
   }
 
-  public TreeMap<Integer, Terminal> getTerminals() {
+  public TreeMap<String, Terminal> getTerminals() {
      return _terminals;
   }
 
-  public TreeMap<Integer, Client> getClients() {
+  public TreeMap<String, Client> getClients() {
      return _clients;
   }
 
   public TreeMap<Integer, Communication> getCommunications() {
      return _communications;
+  }
+
+  public Terminal findTerminal(String id) {
+    return _terminals.get(id);
+  }
+
+  public Client findClient(String key) {
+    return _clients.get(key);
   }
 
   public List<String> terminalsToString() {   //must return a fixed sollection of Strings so the App knows what it's working with
@@ -56,7 +64,11 @@ public class Network implements Serializable {
     return clis;
   }
 
-  public boolean addClient(String key, String name, int nif) {
+  public String clientToString(String key) {
+    return _clients.get(key).clientToString();
+  }
+
+  public boolean addClient(String key, String name, String nif) {
     if (!_clients.containsKey(key))   //FIXME exception for duplicate object?
       return false;
     Client cli = new Client(key, name, nif);

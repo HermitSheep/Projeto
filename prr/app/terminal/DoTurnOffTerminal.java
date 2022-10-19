@@ -1,7 +1,7 @@
 package prr.app.terminal;
 
 import prr.core.Network;
-import prr.core.Parser;
+import prr.core.Terminal;
 import pt.tecnico.uilib.menus.CommandException;
 //FIXME add more imports if needed
 
@@ -10,7 +10,7 @@ import pt.tecnico.uilib.menus.CommandException;
  */
 class DoTurnOffTerminal extends TerminalCommand {
 
-  DoTurnOffTerminal(Network context, Parser.Terminal terminal) {
+  DoTurnOffTerminal(Network context, Terminal terminal) {
     super(Label.POWER_OFF, context, terminal);
   }
   

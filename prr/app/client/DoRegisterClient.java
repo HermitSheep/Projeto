@@ -13,20 +13,20 @@ class DoRegisterClient extends Command<Network> {
 
   DoRegisterClient(Network receiver) {
     super(Label.REGISTER_CLIENT, receiver);
-    addIntegerField("key", "Introduza a chave do cliente: ");
+    addStringField("key", "Introduza a chave desejada para o cliente: ");
     addStringField("name", "Introduza o nome do cliente: ");
-    addIntegerField("nif", "Introduza o nif do cliente: ");
+    addStringField("nif", "Introduza o nif do cliente: ");
   }
   
   @Override
   protected final void execute() throws CommandException {
-    Integer key = integerField("key");
+    String key = stringField("key");
     String name = stringField("name");
-    Integer nif = integerField("nif");
+    String nif = stringField("nif");
     String message;
 
-    if (_receiver.addClient(key, name, nif))   //n sei se é suposto ser assim, ou com exceptions
-      message = "Terminal registado.";         //copiei o exemplo
+    if (_receiver.addClient(key, name, nif))  //n sei se é suposto ser assim, ou com exceptions
+      message = "Terminal registado.";              //copiei o exemplo
     else
       message = "Terminal não adicionado";
     

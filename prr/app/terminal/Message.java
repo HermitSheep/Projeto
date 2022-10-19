@@ -39,6 +39,21 @@ interface Message {
   static String unsupportedAtDestination(String key, String type) {
     return "O terminal '" + key + "' não pode receber comunicações " + type;
   }
+
+  /** @return status message. */
+  static String textMessage() {
+    return "Mensagem de texto a enviar: ";
+  }
+  
+  /** @return status message. */
+  static String commKey() {
+    return "Número da comunicação: ";
+  }
+  
+  /** @return status message. */
+  static String invalidCommunication() {
+    return "O identificador da comunicação é inválido.";
+  }
   
   /**
    * @param cost the cost of the communication
@@ -122,7 +137,7 @@ interface Message {
    * @return string prompting for the communication type.
    */
   static String commType() {
-    return "Tipo de comunicação a iniciar (TEXT, VOICE, VIDEO): ";
+    return "Tipo de comunicação a iniciar (VOICE, VIDEO): ";
   }
 
   /**

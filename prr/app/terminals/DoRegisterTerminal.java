@@ -15,9 +15,9 @@ class DoRegisterTerminal extends Command<Network> {
 
   DoRegisterTerminal(Network receiver) {
     super(Label.REGISTER_TERMINAL, receiver);
-    addIntegerField("id", "Introduza o Id desejado do terminal");
+    addStringField("id", "Introduza o Id desejado do terminal");
     addStringField("type", "Introduza o tipo de terminal desejado: ");
-    addIntegerField("clientId", "Introduza o Id do cliente associado: ");
+    addStringField("clientId", "Introduza o Id do cliente associado: ");
   }
 
   @Override

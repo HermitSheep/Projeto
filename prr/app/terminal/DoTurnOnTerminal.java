@@ -1,7 +1,7 @@
 package prr.app.terminal;
 
 import prr.core.Network;
-import prr.core.Parser;
+import prr.core.Terminal;
 import pt.tecnico.uilib.menus.CommandException;
 //FIXME add more imports if needed
 
@@ -10,7 +10,7 @@ import pt.tecnico.uilib.menus.CommandException;
  */
 class DoTurnOnTerminal extends TerminalCommand {
 
-  DoTurnOnTerminal(Network context, Parser.Terminal terminal) {
+  DoTurnOnTerminal(Network context, Terminal terminal) {
     super(Label.POWER_ON, context, terminal);
   }
   
