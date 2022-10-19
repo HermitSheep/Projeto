@@ -69,8 +69,11 @@ public class Network implements Serializable {
     return clis;
   }
 
-  public String clientToString(String key) {
-    return _clients.get(key).clientToString();
+  public String clientToString(String key) throws ClientNotFoundException {
+    Client cli = _clients.get(key);
+    if (cli == null)
+      throw new ClientNotFoundException(key);
+    return cli.clientToString();
   }
 
   public boolean containsClient(String key) {
@@ -108,12 +111,24 @@ public class Network implements Serializable {
     }
     else if (type.toUpperCase().equals("BASIC")){
       Basic term = new Basic(id, _clients.get(clientKey));
+      try {term.validateId(id);}
+      catch (InvalidTerminalIdException b) {
+        throw new InvalidTerminalIdException(id, b);
+      }
       _terminals.put(id, term);
       return true;
     }
     return false;
   }
 
+  public ArrayList<String> terminalsWithoutActivity() {   //FIXME idk whether it's better to return simply List or ArrayList here
+    Set<String> ids = _terminals.keySet();
+    ArrayList<String> res = new ArrayList<String>();
+    for (String term : ids)
+      if (_terminals.get(term).getNoComs())
+        res.add(term);
+    return res;
+  }
   
   /**
    * Read text input file and create corresponding domain entities.

@@ -75,7 +75,7 @@ public class Client {
     }
 
     public String clientToString() {
-        String client = ("CLIENT" + String.valueOf(_key) + "|" + _name + "|" +      //CLIENT|key|name|
+        String client = ("CLIENT|" + String.valueOf(_key) + "|" + _name + "|" +      //CLIENT|key|name|
                         String.valueOf(_nif) + "|" + _level.name());                //nif|level
         if (hasNotifications())
           client += ("|YES");                                                       //|YES

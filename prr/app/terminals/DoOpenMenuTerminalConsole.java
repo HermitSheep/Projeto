@@ -15,10 +15,9 @@ import prr.core.exception.TerminalNotFoundException;
  */
 class DoOpenMenuTerminalConsole extends Command<Network> {
 
-  DoOpenMenuTerminalConsole(Network receiver, String terminalId) {
+  DoOpenMenuTerminalConsole(Network receiver) {
     super(Label.OPEN_MENU_TERMINAL, receiver);
     addStringField("id", Message.terminalKey());
-    //FIXME add command fields
   }
 
   @Override

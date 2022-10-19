@@ -7,10 +7,12 @@ public class Fancy extends Terminal {
   }
 
   public void makeVideoCall(Terminal to) {
+    _noComs = false;
     //FIXME implement method
   }
 
   protected void acceptVideoCall(Terminal to) {
+    _noComs = false;
     //FIXME implement method
   }
 }

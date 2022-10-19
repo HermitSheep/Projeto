@@ -14,9 +14,9 @@ class DoRegisterClient extends Command<Network> {
 
   DoRegisterClient(Network receiver) {
     super(Label.REGISTER_CLIENT, receiver);
-    addStringField("key", "Introduza a chave desejada para o cliente: ");
-    addStringField("name", "Introduza o nome do cliente: ");
-    addIntegerField("nif", "Introduza o nif do cliente: ");
+    addStringField("key", Message.key());
+    addStringField("name", Message.name());
+    addIntegerField("nif", Message.taxId());
   }
   
   @Override
@@ -24,7 +24,6 @@ class DoRegisterClient extends Command<Network> {
     String key = stringField("key");
     String name = stringField("name");
     int nif = integerField("nif");
-    String message;
 
     try {_receiver.addClient(key, name, nif);}  //n sei se é suposto ser assim, ou com exceptions
     catch (ClientAlreadyExistsException e) {

@@ -13,13 +13,14 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
 
   /** Serial number for serialization. */
   private static final long serialVersionUID = 202208091753L;
-  private String _id;
-  private TerminalMode _mode;
-  private double _payments;
-  private double _debit;
-  private List<String> _friends;
-  private Client _client;
-  private List<Notification> _notifications;
+  protected String _id;
+  protected TerminalMode _mode;
+  protected double _payments;
+  protected double _debit;
+  protected List<String> _friends;
+  protected Client _client;
+  protected List<Notification> _notifications;
+  protected boolean _noComs;
   
 
   public Terminal(String id, Client client) {     //can an abstract class have a constructor? should it be private?~
@@ -30,6 +31,7 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
     _friends = new ArrayList<>();
     _client = client;
     _notifications = new ArrayList<>();
+    _noComs = true;
   }
 
   public void validateId(String id) throws InvalidTerminalIdException{
@@ -67,6 +69,10 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
      return _notifications;
   }
 
+  public boolean getNoComs() {
+     return _noComs;
+  }
+
   public boolean isActive() {
     if (_mode == TerminalMode.OFF)
       return false;
@@ -85,18 +91,22 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
   }
 
   public void makeSMS(Terminal to, String mensage) {
+    _noComs = false;
     // FIXME acho q é preciso criar uma comunicação e tal
   }
 
   protected void acceptSMS(Terminal from) {
+    _noComs = false;
     // FIXME implementar comunicações
   }
 
   public void makeVoiceCall(Terminal to) {
+    _noComs = false;
     // FIXME implementar comunicações
   }
 
   protected void acceptVoiceCall(Terminal to) {
+    _noComs = false;
     // FIXME implementar comunicações
   }
 
