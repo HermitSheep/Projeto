@@ -7,13 +7,13 @@ import static prr.core.ClientLevel.*;
 public class Client {
   private String _key;         //FIXME tem de ser uma String, o stor disse
   private String _name;
-  private String _nif;
+  private int _nif;
   private ClientLevel _level;
   private List<Terminal> _terminals;
   private int _payed;
   private int _debt;
 
-  public Client(String k, String n, String nif){
+  public Client(String k, String n, int nif){
       _name = n;
       _key = k;
       _nif = nif;
@@ -29,7 +29,7 @@ public class Client {
         return _name;
     }
 
-    public String getNif() {
+    public int getNif() {
         return _nif;
     }
 

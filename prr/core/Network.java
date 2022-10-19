@@ -8,9 +8,10 @@ import java.io.IOException;
 import prr.core.Fancy;
 import prr.core.Basic;
 import prr.core.Client;
-import prr.core.exception.UnrecognizedEntryException;
 
-// FIXME add more import if needed (cannot import from pt.tecnico or prr.app)
+import prr.core.exception.UnrecognizedEntryException;
+import prr.core.exception.ClientAlreadyExistsException;
+import prr.core.exception.*;
 
 /**
  * Class Store implements a store.
@@ -38,11 +39,15 @@ public class Network implements Serializable {
      return _communications;
   }
 
-  public Terminal findTerminal(String id) {
+  public Terminal findTerminal(String id) throws TerminalNotFoundException{
+    if (_terminals.get(id) == null)
+      throw new TerminalNotFoundException(id);
     return _terminals.get(id);
   }
 
-  public Client findClient(String key) {
+  public Client findClient(String key) throws ClientNotFoundException{
+    if (_clients.get(key) == null)
+      throw new ClientNotFoundException(key);
     return _clients.get(key);
   }
 
@@ -68,30 +73,44 @@ public class Network implements Serializable {
     return _clients.get(key).clientToString();
   }
 
-  public boolean addClient(String key, String name, String nif) {
-    if (!_clients.containsKey(key))   //FIXME exception for duplicate object?
-      return false;
+  public boolean containsClient(String key) {
+    key.toUpperCase();
+    Set<String> keys = _clients.keySet();
+    for (String key1 : keys) {
+      if (key1.toUpperCase() == key)
+        return true;
+    }
+    return false;
+  }
+
+  public boolean addClient(String key, String name, int nif) throws ClientAlreadyExistsException{
+    if (!containsClient(key)) {
+      throw new ClientAlreadyExistsException(key);
+    }
     Client cli = new Client(key, name, nif);
     _clients.put(key, cli);
     return true;
   }
 
-  public boolean addTerminal(String id, String type, String clientKey) {
-    if (!_terminals.containsKey(id))   //FIXME exception for duplicate object?
-      return false;
-    if (!_clients.containsKey(clientKey))   //FIXME exception for the client not existing
-      return false;
-    if (type.equals("Fancy") || type.equals("fancy")){    //there might be a better way of checking this, and idk if it has to be fancyTerminal
+  public boolean addTerminal(String id, String type, String clientKey) throws TerminalAlreadyExistsException, ClientNotFoundException, InvalidTerminalIdException{
+    if (!_terminals.containsKey(id))
+      throw new TerminalAlreadyExistsException(id);
+    if (!containsClient(clientKey))
+      throw new ClientNotFoundException(clientKey);
+    if (type.toUpperCase().equals("FANCY")){    //there might be a better way of checking this, and idk if it has to be fancyTerminal
       Fancy term = new Fancy(id, _clients.get(clientKey));
+      try {term.validateId(id);}
+      catch (InvalidTerminalIdException e) {
+        throw new InvalidTerminalIdException(id, e);
+      }
       _terminals.put(id, term);
       return true;
     }
-    else if (type.equals("Basic") || type.equals("basic")){
+    else if (type.toUpperCase().equals("BASIC")){
       Basic term = new Basic(id, _clients.get(clientKey));
       _terminals.put(id, term);
       return true;
     }
-    // FIXMEelse throw invalid terminal type exception
     return false;
   }
 

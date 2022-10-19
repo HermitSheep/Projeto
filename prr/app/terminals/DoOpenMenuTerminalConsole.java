@@ -1,11 +1,13 @@
 package prr.app.terminals;
 
 import prr.core.Network;
+
 import prr.app.exception.UnknownTerminalKeyException;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 
 import prr.app.terminal.Menu;
+import prr.core.exception.TerminalNotFoundException;
 
 
 /**
@@ -15,13 +17,16 @@ class DoOpenMenuTerminalConsole extends Command<Network> {
 
   DoOpenMenuTerminalConsole(Network receiver, String terminalId) {
     super(Label.OPEN_MENU_TERMINAL, receiver);
-    addStringField("id", "Introduza o Id desejado do terminal");
+    addStringField("id", Message.terminalKey());
     //FIXME add command fields
   }
 
   @Override
-  protected final void execute() throws CommandException {
+  protected final void execute() throws CommandException, UnknownTerminalKeyException {
     String id = stringField("id");
-    new prr.app.terminal.Menu(_receiver, _receiver.findTerminal(id)).open();
+    try {new prr.app.terminal.Menu(_receiver, _receiver.findTerminal(id)).open();}
+    catch (TerminalNotFoundException e) {
+      throw new UnknownTerminalKeyException(id);
+    }
   }
 }

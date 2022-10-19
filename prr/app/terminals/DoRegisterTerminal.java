@@ -6,7 +6,8 @@ import prr.app.exception.InvalidTerminalKeyException;
 import prr.app.exception.UnknownClientKeyException;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME add more imports if needed
+
+import prr.core.exception.*;
 
 /**
  * Register terminal.
@@ -15,23 +16,28 @@ class DoRegisterTerminal extends Command<Network> {
 
   DoRegisterTerminal(Network receiver) {
     super(Label.REGISTER_TERMINAL, receiver);
-    addStringField("id", "Introduza o Id desejado do terminal");
-    addStringField("type", "Introduza o tipo de terminal desejado: ");
-    addStringField("clientId", "Introduza o Id do cliente associado: ");
+    String[] options = {"Basic", "Fancy", "basic", "fancy", "BASIC", "FANCY"};  //idk if basic and fancy count
+    addIntegerField("id", Message.terminalKey());
+    addOptionField("type", Message.terminalType(), options);
+    addStringField("clientId", Message.clientKey());
   }
 
   @Override
-  protected final void execute() throws CommandException {
-    String id = stringField("id");
+  protected final void execute() throws CommandException, DuplicateTerminalKeyException, UnknownClientKeyException {
+    int Id = integerField("id");
+    String id = String.valueOf(Id);
     String type = stringField("type");
-    String clientId = stringField("clientId");
-    String message;
+    String clientKey = stringField("clientId");
 
-    if (_receiver.addTerminal(id, type, clientId))  //n sei se é suposto ser assim, ou com exceptions
-      message = "Terminal registado.";              //copiei o exemplo
-    else
-      message = "Terminal não adicionado";
-    
-    _display.popup(message);
+    try {_receiver.addTerminal(id, type, clientKey);}
+    catch (TerminalAlreadyExistsException e){
+      throw new DuplicateTerminalKeyException(id);
+    }
+    catch (ClientNotFoundException b){
+      throw new UnknownClientKeyException(clientKey);
+    }
+    catch (InvalidTerminalIdException a) {
+      throw new InvalidTerminalKeyException(id);
+    }
   }
 }

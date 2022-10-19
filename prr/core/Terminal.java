@@ -2,6 +2,7 @@ package prr.core;
 
 import java.io.Serializable;
 import java.util.*;
+import prr.core.exception.InvalidTerminalIdException;
 
 // FIXME add more import if needed (cannot import from pt.tecnico or prr.app)
 
@@ -16,12 +17,12 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
   private TerminalMode _mode;
   private double _payments;
   private double _debit;
-  private List<Integer> _friends;
+  private List<String> _friends;
   private Client _client;
   private List<Notification> _notifications;
   
 
-  public Terminal(String id, Client client) {     //can an abstract class have a constructor? should it be private?
+  public Terminal(String id, Client client) {     //can an abstract class have a constructor? should it be private?~
     _id = id;
     _mode = TerminalMode.OFF;
     _payments = 0;
@@ -29,6 +30,13 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
     _friends = new ArrayList<>();
     _client = client;
     _notifications = new ArrayList<>();
+  }
+
+  public void validateId(String id) throws InvalidTerminalIdException{
+    if (id.length() != 6)
+      throw new InvalidTerminalIdException(id);
+    try {String.valueOf(id);}
+    catch (Exception e) {throw new InvalidTerminalIdException(id);}
   }
 
   public String getId() {
@@ -51,7 +59,7 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
      return _client;
   }
 
-  public List<Integer> getFriends() {
+  public List<String> getFriends() {
      return _friends;
   }
 
@@ -66,13 +74,13 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
   }
 
   public String terminalToString() {
-    String terminal = (this.getClass().getSimpleName() + "|" + _id)
+    String terminal = (this.getClass().getSimpleName() + "|" + _id
                       + "|" + _client.getName() + "|" + _mode.toString()
                       + "|" + Double.toString(_payments) + "|" + Double.toString(_debit));
+    terminal += "|";
     Collections.sort(_friends);
-    for (Integer id : _friends){
-      terminal += ("|" + id);
-    }
+    String friends = String.join(",", _friends);
+    terminal += friends;
     return terminal;
   }
 
