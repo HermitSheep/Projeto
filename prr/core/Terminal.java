@@ -37,8 +37,8 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
   public void validateId(String id) throws InvalidTerminalIdException{
     if (id.length() != 6)
       throw new InvalidTerminalIdException(id);
-    try {String.valueOf(id);}
-    catch (Exception e) {throw new InvalidTerminalIdException(id);}
+    if (id.matches("[0-9]+"))
+      throw new InvalidTerminalIdException(id);
   }
 
   public String getId() {
