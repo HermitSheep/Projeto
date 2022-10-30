@@ -1,10 +1,10 @@
 package prr.core;
 
+import java.io.Serializable;
 import java.util.*;
 
-import static prr.core.ClientLevel.*;
 
-public class Client {
+public class Client implements Serializable{
   private String _key;         //FIXME tem de ser uma String, o stor disse
   private String _name;
   private int _nif;
@@ -12,6 +12,7 @@ public class Client {
   private List<Terminal> _terminals;
   private int _payed;
   private int _debt;
+  private boolean _notiSet;
 
   public Client(String k, String n, int nif){
       _name = n;
@@ -19,70 +20,90 @@ public class Client {
       _nif = nif;
       _terminals = new ArrayList<>();
       _level = ClientLevel.NORMAL;
+      _notiSet = true;
+      _debt = 0;
+      _payed = 0;
   }
 
   public String getKey(){
     return _key;
-}
-
-    public String getName(){
-        return _name;
     }
 
-    public int getNif() {
-        return _nif;
-    }
+  public String getName(){
+    return _name;
+  }
 
-    public ClientLevel getLevel(){
-        return _level;
-    }
+  public int getNif() {
+    return _nif;
+  }
 
-    public List<Terminal> getTerminals(){
-        return _terminals;
-    }
+  public ClientLevel getLevel(){
+    return _level;
+  }
 
-    public int getPayed(){
-        return _payed;
-    }
+  public boolean getNotiSet() {
+     return _notiSet;
+  }
 
-    public int getDebt(){
-        return _debt;
-    }
+  public List<Terminal> getTerminals(){
+      return _terminals;
+  }
 
-    public List<Notification> getNotifications() {
-        List<Notification> noti = new ArrayList<Notification>();
-        for (Terminal term : _terminals) {
-            if (!term.getNotifications().isEmpty())
-            noti.addAll(term.getNotifications());
-        }
-        return noti;
-    }
+  public int getPayed(){
+      return _payed;
+  }
 
-    public boolean hasNotifications() {
-        for (Terminal term : _terminals) {
-            if (!term.getNotifications().isEmpty())
-            return true;
-        }
-        return false;
-    }
+  public int getDebt(){
+      return _debt;
+  }
 
-    public int activeTerminals() {
-        int res = 0;
-        for (Terminal term : _terminals)
-            if (term.isActive())
-                res++;
-        return res;
-    }
+  public void turnNotiOn() {
+    _notiSet = true;
+  }
 
-    public String clientToString() {
-        String client = ("CLIENT|" + String.valueOf(_key) + "|" + _name + "|" +      //CLIENT|key|name|
-                        String.valueOf(_nif) + "|" + _level.name());                //nif|level
-        if (hasNotifications())
-          client += ("|YES");                                                       //|YES
-        else
-          client += ("|NO");                                                        //|NO
-        client += ("|" + String.valueOf(activeTerminals()) + "|" + String.valueOf(_payed)   //|
-                    + "|" + String.valueOf(_debt));
-        return client;
-    }
+  public void turnNotiOff() {
+    _notiSet = false;
+  }
+
+  public void addTerminal(Terminal term) {
+    _terminals.add(term);
+  }
+
+  public List<Notification> getNotifications() {
+      List<Notification> noti = new ArrayList<Notification>();
+      for (Terminal term : _terminals) {
+          if (!term.getNotifications().isEmpty())
+          noti.addAll(term.getNotifications());
+      }
+      return noti;
+  }
+
+  public boolean hasNotifications() {
+      for (Terminal term : _terminals) {
+          if (!term.getNotifications().isEmpty())
+          return true;
+      }
+      return false;
+  }
+
+  public int activeTerminals() {
+      int res = 0;
+      for (Terminal term : _terminals)
+          if (term.isActive())
+              res++;
+      return res;
+  }
+
+  public String toString() {
+      String client = ("CLIENT|" + _key + "|" + _name + "|" +                         //CLIENT|key|name
+                      String.valueOf(_nif) + "|" + _level.name());                    //|Nif|level
+      if (_notiSet)
+          client += ("|YES");                                                         //|YES
+      else
+          client += ("|NO");                                                          //|NO
+      client += ("|" + String.valueOf(activeTerminals()) + "|" + Math.round(_payed)   //|Active terminals|Payed
+                  + "|" + Math.round(_debt));                                         //|Debt
+      return client;
+  }
+  
 }

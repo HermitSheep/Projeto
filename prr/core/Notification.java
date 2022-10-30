@@ -1,7 +1,9 @@
 package prr.core;
 
-public class Notification {
-  private NotificationType _type;
+import java.io.Serializable;
+
+public class Notification implements Serializable{
+  /*private NotificationType _type;
 
   public Notification(NotificationType type) {
     _type = type;
@@ -9,5 +11,7 @@ public class Notification {
 
   public String toString() {
     //FIXME implement method
+    return null;
   }
+  */
 }

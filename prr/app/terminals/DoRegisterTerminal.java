@@ -16,20 +16,19 @@ class DoRegisterTerminal extends Command<Network> {
 
   DoRegisterTerminal(Network receiver) {
     super(Label.REGISTER_TERMINAL, receiver);
-    String[] options = {"Basic", "Fancy", "basic", "fancy", "BASIC", "FANCY"};  //idk if basic and fancy count
-    addIntegerField("id", Message.terminalKey());
+    String[] options = {"BASIC", "FANCY"};  //idk if basic and fancy count
+    addStringField("id", Message.terminalKey());
     addOptionField("type", Message.terminalType(), options);
     addStringField("clientId", Message.clientKey());
   }
 
   @Override
   protected final void execute() throws CommandException, DuplicateTerminalKeyException, UnknownClientKeyException {
-    int Id = integerField("id");
-    String id = String.valueOf(Id);
+    String id = stringField("id");
     String type = stringField("type");
     String clientKey = stringField("clientId");
 
-    try {_receiver.addTerminal(id, type, clientKey);}
+    try {_receiver.registerTerminal(type, id, clientKey);}
     catch (TerminalAlreadyExistsException e){
       throw new DuplicateTerminalKeyException(id);
     }

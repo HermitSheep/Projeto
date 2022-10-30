@@ -1,12 +1,12 @@
 package prr.core;
 
-import java.io.Reader;
+//import java.io.Reader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.BufferedReader;
 
-import java.util.Collection;
-import java.util.ArrayList;
+//import java.util.Collection;
+//import java.util.ArrayList;
 
 import prr.core.exception.UnrecognizedEntryException;
 // import more exception core classes if needed
@@ -43,12 +43,12 @@ public class Parser {
       case "CLIENT" -> parseClient(components, line);
       case "BASIC", "FANCY" -> parseTerminal(components, line);
       case "FRIENDS" -> parseFriends(components, line);
-      default -> throw new UnrecognizedEntryException("Line with wong type: " + components[0]);
+      default -> throw new UnrecognizedEntryException("Line with wrong type: " + components[0]);
     }
   }
 
   private void checkComponentsLength(String[] components, int expectedSize, String line) throws UnrecognizedEntryException {
-    if (component.length != expectedSize)
+    if (components.length != expectedSize)
       throw new UnrecognizedEntryException("Invalid number of fields in line: " + line);
   }
   
@@ -61,11 +61,11 @@ public class Parser {
       _network.registerClient(components[1], components[2], taxNumber);
     } catch (NumberFormatException nfe) {
       throw new UnrecognizedEntryException("Invalid number in line " + line, nfe);
-    } catch (OtherException e) {
+    } catch (Exception e) {
       throw new UnrecognizedEntryException("Invalid specification in line: " + line, e);
     }
   }
-
+ 
   // parse a line with format terminal-type|idTerminal|idClient|state
   private void parseTerminal(String[] components, String line) throws UnrecognizedEntryException {
     checkComponentsLength(components, 4, line);
@@ -74,13 +74,13 @@ public class Parser {
       Terminal terminal = _network.registerTerminal(components[0], components[1], components[2]);
       switch(components[3]) {
         case "SILENCE" -> terminal.setOnSilent();
-        case "OFF" -> terminal->turnOff();
+        case "OFF" -> terminal.turnOff();   //alguma coisa aqui está mal
         default -> {
          if (!components[3].equals("ON"))
            throw new UnrecognizedEntryException("Invalid specification in line: " + line);
         } 
       }
-    } catch (SomeOtherException e) {
+    } catch (Exception e) {
       throw new UnrecognizedEntryException("Invalid specification: " + line, e);
     }
   }
@@ -95,7 +95,7 @@ public class Parser {
       
       for (String friend : friends)
         _network.addFriend(terminal, friend);
-    } catch (OtherException e) {
+    } catch (Exception e) {
       throw new UnrecognizedEntryException("Some message error in line:  " + line, e);
     }
   }

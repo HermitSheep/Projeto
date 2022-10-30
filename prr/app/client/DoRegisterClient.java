@@ -25,7 +25,7 @@ class DoRegisterClient extends Command<Network> {
     String name = stringField("name");
     int nif = integerField("nif");
 
-    try {_receiver.addClient(key, name, nif);}  //n sei se é suposto ser assim, ou com exceptions
+    try {_receiver.registerClient(key, name, nif);}  //n sei se é suposto ser assim, ou com exceptions
     catch (ClientAlreadyExistsException e) {
       throw new DuplicateClientKeyException(key);
     }

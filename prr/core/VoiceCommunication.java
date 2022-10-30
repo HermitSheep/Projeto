@@ -7,6 +7,7 @@ public class VoiceCommunication extends InteractiveCommunication{
 
   protected double computeCost(TariffPlan plan) {
     //FIXME implement method
+    return 0;
   }
 
 }

@@ -1,15 +1,18 @@
 package prr.core;
 
-public class BasicPlan extends TarrifPlan{
-  protected double computeCost(Parser.Client cl, TextCommunication com) {
+public class BasicPlan extends TariffPlan{
+  protected double computeCost(Client cl, TextCommunication com) {
     //FIXME implement method
+    return 0;
   }
 
-  protected double computeCost(Parser.Client cl, VoiceCommunication com) {
+  protected double computeCost(Client cl, VoiceCommunication com) {
     //FIXME implement method
+    return 0;
   }
 
-  protected double computeCost(Parser.Client cl, VideoCommunication com){
+  protected double computeCost(Client cl, VideoCommunication com){
     //FIXME implement method
+    return 0;
   }
 }

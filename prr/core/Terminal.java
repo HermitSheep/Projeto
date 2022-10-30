@@ -23,9 +23,9 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
   protected boolean _noComs;
   
 
-  public Terminal(String id, Client client) {     //can an abstract class have a constructor? should it be private?~
+  public Terminal(String id,  Client client) {     //can an abstract class have a constructor? should it be private?~
     _id = id;
-    _mode = TerminalMode.OFF;
+    _mode = TerminalMode.IDLE;
     _payments = 0;
     _debit = 0;
     _friends = new ArrayList<>();
@@ -37,7 +37,7 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
   public void validateId(String id) throws InvalidTerminalIdException{
     if (id.length() != 6)
       throw new InvalidTerminalIdException(id);
-    if (id.matches("[0-9]+"))
+    if (!id.matches("[0-9]*"))
       throw new InvalidTerminalIdException(id);
   }
 
@@ -80,13 +80,15 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
   }
 
   public String terminalToString() {
-    String terminal = (this.getClass().getSimpleName() + "|" + _id
-                      + "|" + _client.getName() + "|" + _mode.toString()
-                      + "|" + Double.toString(_payments) + "|" + Double.toString(_debit));
-    terminal += "|";
-    Collections.sort(_friends);
-    String friends = String.join(",", _friends);
-    terminal += friends;
+    String terminal = (this.getClass().getSimpleName().toUpperCase() + "|" + _id
+                      + "|" + _client.getKey() + "|" + _mode.toString()
+                      + "|" + Math.round(_payments) + "|" + Math.round(_debit));
+    if (!_friends.isEmpty()) {
+      terminal += "|";
+      Collections.sort(_friends);
+      String friends = String.join(",", _friends);
+      terminal += friends;
+    }
     return terminal;
   }
 
@@ -119,15 +121,22 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
   }
 
   public boolean setOnIdle(){
-    // FIXME implementar comunicações
+    _mode = TerminalMode.IDLE;
+    return true;
   }
 
   public boolean setOnSilent(){
-    // FIXME implementar comunicações
+    if (_mode == TerminalMode.SILENSE)
+      return false;
+    _mode = TerminalMode.SILENSE;
+    return true;
   }
 
   public boolean turnOff(){
-    // FIXME implementar comunicações
+    if (_mode == TerminalMode.OFF)
+      return false;
+    _mode = TerminalMode.OFF;
+    return true;
   }
   
   /**
@@ -138,6 +147,7 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
    **/
   public boolean canEndCurrentCommunication() {
     // FIXME add implementation code
+    return _mode == TerminalMode.BUSY;
   }
   
   /**
@@ -147,9 +157,10 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
    **/
   public boolean canStartCommunication() {
     // FIXME add implementation code
+    return !(_mode == TerminalMode.BUSY || _mode == TerminalMode.OFF);
   }
 
-  public void addFriend(Terminal term) {
-    //FIXME
+  public void addFriend(String term) {
+    _friends.add(term);
   }
 }

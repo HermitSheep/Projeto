@@ -7,5 +7,6 @@ public class VideoCommunication extends InteractiveCommunication{
 
   protected double computeCost(TariffPlan plan) {
     //FIXME implement method
+    return 0;
   }
 }
