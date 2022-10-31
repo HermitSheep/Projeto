@@ -5,7 +5,7 @@ import java.util.*;
 
 
 public class Client implements Serializable{
-  private String _key;         //FIXME tem de ser uma String, o stor disse
+  private String _key;
   private String _name;
   private int _nif;
   private ClientLevel _level;

@@ -2,7 +2,7 @@ package prr.core;
 
 
 public class Fancy extends Terminal {
-  public Fancy(String id, Client client) {
+  public Fancy(String id, String client) {
     super(id, client);
   }
 

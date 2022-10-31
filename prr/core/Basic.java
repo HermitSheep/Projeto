@@ -1,7 +1,7 @@
 package prr.core;
 
 public class Basic extends Terminal {
-  public Basic(String id, Client client) {
+  public Basic(String id, String client) {
     super(id, client);
   }
 

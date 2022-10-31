@@ -108,7 +108,8 @@ public class NetworkManager {
   public void importFile(String filename) throws ImportFileException {
     try {
       _network.importFile(filename);
-    } catch (IOException | UnrecognizedEntryException /* FIXME maybe other exceptions */ e) {
+    }
+    catch (IOException | UnrecognizedEntryException /* FIXME maybe other exceptions */ e) {
       throw new ImportFileException(filename, e);
     }
   }

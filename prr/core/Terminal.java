@@ -18,12 +18,12 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
   protected double _payments;
   protected double _debit;
   protected List<String> _friends;
-  protected Client _client;
+  protected String _client;
   protected List<Notification> _notifications;
   protected boolean _noComs;
   
 
-  public Terminal(String id,  Client client) {     //can an abstract class have a constructor? should it be private?~
+  public Terminal(String id,  String client) {     //can an abstract class have a constructor? should it be private?~
     _id = id;
     _mode = TerminalMode.IDLE;
     _payments = 0;
@@ -57,7 +57,7 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
      return _debit;
   }
 
-  public Client getClient() {
+  public String getClient() {
      return _client;
   }
 
@@ -81,7 +81,7 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
 
   public String terminalToString() {
     String terminal = (this.getClass().getSimpleName().toUpperCase() + "|" + _id
-                      + "|" + _client.getKey() + "|" + _mode.toString()
+                      + "|" + _client + "|" + _mode.toString()
                       + "|" + Math.round(_payments) + "|" + Math.round(_debit));
     if (!_friends.isEmpty()) {
       terminal += "|";

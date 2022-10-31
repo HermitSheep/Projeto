@@ -241,7 +241,7 @@ public class Form {
 		return request.parse().stringField("answer");
 	}
 
-	public static String requestOption(String prompt, String... options) {
+	public static String requestOption(String prompt, String options) {
 		Form request = new Form();
 		request.addOptionField("answer", prompt, options);
 		return request.parse().optionField("answer");

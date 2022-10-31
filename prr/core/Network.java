@@ -41,14 +41,6 @@ public class Network implements Serializable {
     return term.getClass().getSimpleName();
   }
 
-  public List<Terminal> getListTerminals() {
-    Set<String> ids = _terminals.keySet();
-    List<Terminal> listTerminals = new ArrayList<Terminal>();
-    for (String id : ids)
-      listTerminals.add(_terminals.get(id));
-    return listTerminals;
-  }
-
   public List<Client> getListclients() {
     Set<String> keys = _clients.keySet();
     List<Client> listClients = new ArrayList<Client>();
@@ -57,26 +49,24 @@ public class Network implements Serializable {
     return listClients;
   }
 
-  public Terminal findTerminal(String id) throws TerminalNotFoundException {
-    if (_terminals.get(id) == null)
-      throw new TerminalNotFoundException(id);
-    return _terminals.get(id);
-  }
-
   public Client findClient(String key) throws ClientNotFoundException {
-    if (_clients.get(key) == null)
+    if (!containsClient(key))
       throw new ClientNotFoundException(key);
-    return _clients.get(key);
+    return _clients.get(key.toUpperCase());
   }
 
-  public List<String> terminalsToString() { // must return a fixed sollection of Strings so the App knows what it's
-                                            // working with
-    Set<String> ids = _terminals.keySet();
-    List<String> terms = new ArrayList<String>();
-    for (String id : ids) {
-      terms.add(_terminals.get(id).terminalToString());
+  public boolean containsClient(String cli) {
+    if (_clients.get(cli.toUpperCase()) == null)
+      return false;
+    return true;
+  }
+
+  public void registerClient(String key, String name, int nif) throws ClientAlreadyExistsException {
+    if (containsClient(key)) {
+      throw new ClientAlreadyExistsException(key);
     }
-    return terms;
+    Client cli = new Client(key, name, nif);
+    _clients.put(key.toUpperCase(), cli);
   }
 
   public List<String> clientsToString() {
@@ -89,28 +79,38 @@ public class Network implements Serializable {
   }
 
   public String clientToString(String key) throws ClientNotFoundException {
-    Client cli = _clients.get(key);
+    Client cli = _clients.get(key.toUpperCase());
     if (cli == null)
       throw new ClientNotFoundException(key);
     return cli.toString();
   }
 
-  public boolean containsClient(String cli) {
-    Set<String> keys = _clients.keySet();
-    for (String key1 : keys) {
-      if (key1.toUpperCase().equals(cli.toUpperCase())) {          //erro está a acontecer aqui
-        return true;
-      }
-    }
-    return false;
+
+
+
+
+  public List<Terminal> getListTerminals() {
+    Set<String> ids = _terminals.keySet();
+    List<Terminal> listTerminals = new ArrayList<Terminal>();
+    for (String id : ids)
+      listTerminals.add(_terminals.get(id));
+    return listTerminals;
   }
 
-  public void registerClient(String key, String name, int nif) throws ClientAlreadyExistsException {
-    if (containsClient(key)) {
-      throw new ClientAlreadyExistsException(key);
+  public Terminal findTerminal(String id) throws TerminalNotFoundException {
+    if (_terminals.get(id) == null)
+      throw new TerminalNotFoundException(id);
+    return _terminals.get(id);
+  }
+
+  public List<String> terminalsToString() { // must return a fixed sollection of Strings so the App knows what it's
+                                            // working with
+    Set<String> ids = _terminals.keySet();
+    List<String> terms = new ArrayList<String>();
+    for (String id : ids) {
+      terms.add(_terminals.get(id).terminalToString());
     }
-    Client cli = new Client(key, name, nif);
-    _clients.put(key, cli);
+    return terms;
   }
 
   public Terminal registerTerminal(String type, String id, String clientKey)
@@ -123,26 +123,26 @@ public class Network implements Serializable {
       
     if (type.toUpperCase().equals("FANCY")) { // there might be a better way of checking this, and idk if it has to be
                                                        // fancyTerminal
-      Fancy term = new Fancy(id, _clients.get(clientKey));
+      Fancy term = new Fancy(id, clientKey);
       try {
         term.validateId(id);
       } catch (InvalidTerminalIdException e) {
-        throw new InvalidTerminalIdException(id, e);
+          throw new InvalidTerminalIdException(id, e);
       }
       _terminals.put(id, term);
-      _clients.get(clientKey).addTerminal(term);
+      findClient(clientKey).addTerminal(term);
       return term;
     }
     
     else if (type.toUpperCase().equals("BASIC")) {
-      Basic term = new Basic(id, _clients.get(clientKey));
+      Basic term = new Basic(id, clientKey);
       try {
         term.validateId(id);
       } catch (InvalidTerminalIdException b) {
-        throw new InvalidTerminalIdException(id, b);
+          throw new InvalidTerminalIdException(id, b);
       }
       _terminals.put(id, term);
-      _clients.get(clientKey).addTerminal(term);
+      findClient(clientKey).addTerminal(term);
       return term;
     }
     return null;
@@ -150,7 +150,6 @@ public class Network implements Serializable {
 
   public ArrayList<String> terminalsWithoutActivity() { // FIXME idk whether it's better to return simply List or
                                                         // ArrayList here
-  
     ArrayList<String> res = new ArrayList<String>();
     for (Terminal term : _terminals.values())
       if (term.getNoComs())
