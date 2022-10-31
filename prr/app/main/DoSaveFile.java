@@ -14,32 +14,32 @@ import java.io.IOException;
  * Command to save a file.
  */
 class DoSaveFile extends Command<NetworkManager> {
-  String filename;
-
+  String filename = _receiver.getFilename();
   DoSaveFile(NetworkManager receiver) {
     super(Label.SAVE_FILE, receiver);
-    filename = receiver.getFilename();
-    if (filename == null)
-      addStringField("file", Message.newSaveAs());
+    System.out.println("started saving: " + filename);
+    System.out.println("went for save as");
+    addStringField("file", Message.newSaveAs());
 
+    System.out.println("leaving constructor: " + filename);
   }
 
   @Override
   protected final void execute() throws FileOpenFailedException {
-    String file;
+    System.out.println("entered execute");
+    String filename = _receiver.getFilename();
     try {
       if (filename == null) {
-        file = stringField("file");
-        _receiver.saveAs(file);
+        filename = stringField("file");
+        _receiver.saveAs(filename);
       }
       else {
         _receiver.save();
-        _display.addLine(Message.saveAs());
-        _display.display();
       }
     } 
     catch (ImportFileException | MissingFileAssociationException | IOException e) {  //fileNotFound extends IOException
         throw new FileOpenFailedException(e);
     }
+    finally {System.out.println("finished saving");}
   }
 }

@@ -26,6 +26,8 @@ public class NetworkManager {
   private Network _network = new Network();
   private String _filename;
 
+  public NetworkManager() {
+  }
   
   public Network getNetwork() {
     return _network;
@@ -47,11 +49,12 @@ public class NetworkManager {
     Network n = (Network)textfile.readObject();
     _network = n;
     _filename = filename;
+    System.out.println("load: " + _filename);
     textfile.close();
-  }  
-  catch(FileNotFoundException e){
-    throw new UnavailableFileException(filename);
-  }
+    }  
+    catch(FileNotFoundException e){
+      throw new UnavailableFileException(filename);
+    }
   }
   
   /**
@@ -63,7 +66,7 @@ public class NetworkManager {
    */
   public void save() throws MissingFileAssociationException, FileNotFoundException, IOException {  //idk if the file is being saved properly, but i think not FIXME
     ObjectOutputStream save = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(_filename)));
-
+    System.out.println("save: " + _filename);
     try {
       save.writeObject(_network);
     } 
@@ -88,8 +91,9 @@ public class NetworkManager {
    * @throws IOException if there is some error while serializing the state of the network to disk.
    */
   public void saveAs(String filename) throws ImportFileException {
+    _filename = filename;
+    System.out.println("saveAs: " + _filename);
     try {
-      _filename = filename;
       save();
      } catch (MissingFileAssociationException | IOException/* FIXME maybe other exceptions */ e) {  //Nao sei o que fazer com as excessoes e ja estou bue cancado entao nao consigo lidar com isso hoje
        throw new ImportFileException(filename, e);

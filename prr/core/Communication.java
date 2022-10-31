@@ -3,10 +3,26 @@ package prr.core;
 import java.io.Serializable;
 
 public abstract class Communication implements Serializable{
-  //private int _id;
-  //private boolean _isPaid;
+  private int _id;
+  private boolean _isPaid;
   double _cost;
   boolean _isOngoing;
+
+  public int getId() {
+     return _id;
+  }
+  
+  public boolean getIsPaid() {
+     return _isPaid;
+  }
+
+  public double getCost() {
+     return _cost;
+  }
+
+  public boolean getIsOngoing() {
+     return _isOngoing;
+  }
 
   public void makeSMS(Terminal to, String message) {
     //FIXME implement method

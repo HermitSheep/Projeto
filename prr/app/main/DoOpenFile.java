@@ -14,10 +14,8 @@ import prr.core.exception.UnavailableFileException;
  */
 class DoOpenFile extends Command<NetworkManager> {
 
-  NetworkManager _receiver;
   DoOpenFile(NetworkManager receiver) {
     super(Label.OPEN_FILE, receiver);
-    _receiver = receiver;
     addStringField("file", Message.openFile());
   }
 
