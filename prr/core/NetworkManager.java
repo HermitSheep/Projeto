@@ -49,7 +49,7 @@ public class NetworkManager {
     Network n = (Network)textfile.readObject();
     _network = n;
     _filename = filename;
-    System.out.println("load: " + _filename);
+    //System.out.println("load: " + _filename);
     textfile.close();
     }  
     catch(FileNotFoundException e){
@@ -64,21 +64,19 @@ public class NetworkManager {
    * @throws MissingFileAssociationException if the current network does not have a file.
    * @throws IOException if there is some error while serializing the state of the network to disk.
    */
-  public void save() throws MissingFileAssociationException, FileNotFoundException, IOException {  //idk if the file is being saved properly, but i think not FIXME
-    ObjectOutputStream save = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(_filename)));
-    System.out.println("save: " + _filename);
+  public void save() throws MissingFileAssociationException {  //idk if the file is being saved properly, but i think not FIXME
+    //System.out.println("save: " + _filename);
     try {
+      ObjectOutputStream save = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(_filename)));
       save.writeObject(_network);
+      save.close();
     } 
-    catch (FileNotFoundException e) {
+    catch (IOException e) {
       throw new MissingFileAssociationException();
-    }
+    }/*
     catch (IOException e){
       e.printStackTrace();
-    }
-    finally{
-      save.close();
-    }
+    } */
   }
   
   /**
@@ -91,13 +89,14 @@ public class NetworkManager {
    * @throws IOException if there is some error while serializing the state of the network to disk.
    */
   public void saveAs(String filename) throws ImportFileException {
-    _filename = filename;
-    System.out.println("saveAs: " + _filename);
+    if (filename != null)
+      _filename = filename;
+      //System.out.println("saveAs: " + _filename);
     try {
       save();
-     } catch (MissingFileAssociationException | IOException/* FIXME maybe other exceptions */ e) {  //Nao sei o que fazer com as excessoes e ja estou bue cancado entao nao consigo lidar com isso hoje
-       throw new ImportFileException(filename, e);
-     }
+    } catch (MissingFileAssociationException/* FIXME maybe other exceptions */ e) {  //Nao sei o que fazer com as excessoes e ja estou bue cancado entao nao consigo lidar com isso hoje
+      throw new ImportFileException(filename, e);
+    }
   }
   
   /**

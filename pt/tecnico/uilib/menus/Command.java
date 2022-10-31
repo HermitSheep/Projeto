@@ -118,7 +118,7 @@ public abstract class Command<Receiver> {
     _form.addStringField(key, prompt);
   }
 
-  public void addOptionField(String key, String prompt, String[] options) {
+  public void addOptionField(String key, String prompt, String... options) {
     _form.addOptionField(key, prompt, options);
   }
 

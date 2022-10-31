@@ -27,26 +27,12 @@ public class Dialog implements AutoCloseable {
   /** Singleton constructor (private). */
   private Dialog() {
     try {
-      /**_backend = switch (System.getProperty(ACTION_CHANNEL, CHANNEL_TEXT)) {
+      _backend = switch (System.getProperty(ACTION_CHANNEL, CHANNEL_TEXT)) {
       case CHANNEL_SWING -> new SwingInteraction();
       case CHANNEL_NEW_SWING -> new NewSwingInteraction();
       case CHANNEL_TEXT -> new TextInteraction();
       default -> new TextInteraction();
-      };*/
-      switch(System.getProperty(ACTION_CHANNEL, CHANNEL_TEXT)) {
-        case CHANNEL_SWING:
-          _backend = new SwingInteraction();
-          break;
-        case CHANNEL_NEW_SWING:
-          _backend = new NewSwingInteraction();
-          break;
-        case CHANNEL_TEXT:
-          _backend = new TextInteraction();
-          break;
-        default:
-          _backend = new TextInteraction();
-          break;
-      }
+      };
     } catch (SecurityException e) {
       System.err.println(e);
     }
