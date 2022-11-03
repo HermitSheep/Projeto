@@ -2,7 +2,14 @@ package prr.core;
 
 import java.io.Serializable;
 import java.util.*;
+
+import prr.core.exception.InactiveTerminalException;
 import prr.core.exception.InvalidTerminalIdException;
+import prr.core.exception.noOngoingComException;
+import prr.core.exception.UnsuportedAtOrigin;
+import prr.core.exception.UnsuportedAtDestination;
+import prr.core.exception.StateNotChangedException;
+import prr.core.exception.TerminalNotFoundException;
 
 // FIXME add more import if needed (cannot import from pt.tecnico or prr.app)
 
@@ -18,12 +25,16 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
   protected double _payments;
   protected double _debit;
   protected List<String> _friends;
-  protected String _client;
+  protected Client _client;                     //i should change this bacl to client, if it's usefull for the payment operations
   protected List<Notification> _notifications;
+  protected List<Communication> _failedComs;  //For putting in the failled sommunications to send notifications
   protected boolean _noComs;
+  protected List<Communication> _madeCommunications;
+  protected List<Communication> _receivedCommunications;
+  protected InteractiveCommunication _ongoingCom;
   
 
-  public Terminal(String id,  String client) {     //can an abstract class have a constructor? should it be private?~
+  public Terminal(String id,  Client client) {     //can an abstract class have a constructor? should it be private?~
     _id = id;
     _mode = TerminalMode.IDLE;
     _payments = 0;
@@ -32,6 +43,10 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
     _client = client;
     _notifications = new ArrayList<>();
     _noComs = true;
+    _failedComs = new ArrayList<>();
+    _madeCommunications = new ArrayList<>();
+    _receivedCommunications = new ArrayList<>();
+
   }
 
   public void validateId(String id) throws InvalidTerminalIdException{
@@ -57,7 +72,7 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
      return _debit;
   }
 
-  public String getClient() {
+  public Client getClient() {
      return _client;
   }
 
@@ -73,6 +88,10 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
      return _noComs;
   }
 
+  public double getDebt() {
+     return _debit;
+  }
+
   public boolean isActive() {
     if (_mode == TerminalMode.OFF)
       return false;
@@ -80,8 +99,8 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
   }
 
   public String terminalToString() {
-    String terminal = (this.getClass().getSimpleName().toUpperCase() + "|" + _id
-                      + "|" + _client + "|" + _mode.toString()
+    String terminal = (this.getClass().getSimpleName() + "|" + _id
+                      + "|" + _client.getKey() + "|" + _mode.toString()
                       + "|" + Math.round(_payments) + "|" + Math.round(_debit));
     if (!_friends.isEmpty()) {
       terminal += "|";
@@ -92,52 +111,92 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
     return terminal;
   }
 
-  public void makeSMS(Terminal to, String mensage) {
+  private void failedCom(Communication failure){
+    _failedComs.add(failure);
+  }
+
+  private void computeCost(Communication c){
+    double cost;
+    cost = c.computeCost(_client.getPlan());  //NAO ESQUECER DESCONTO DE AMIGO !!!!!!!!
+    _debit += cost;
+    _client.addDebt(cost);
+  }
+  
+  public Communication makeSMS(Terminal to, String msg) throws InactiveTerminalException{
     _noComs = false;
-    // FIXME acho q é preciso criar uma comunicação e tal
+    TEXT txt = new TEXT(msg, this, to);
+    to.acceptSMS(this, txt);
+    computeCost(txt);
+    _madeCommunications.add(txt);
+    return txt;
   }
 
-  protected void acceptSMS(Terminal from) {
+  protected void acceptSMS(Terminal from, TEXT txt) throws InactiveTerminalException{
+    if (!from.isActive()){
+      failedCom(txt);
+      throw new InactiveTerminalException(from.getId(), from.getMode());
+    }
     _noComs = false;
-    // FIXME implementar comunicações
+    _receivedCommunications.add(txt);
   }
 
-  public void makeVoiceCall(Terminal to) {
+  public Communication makeVoiceCall(Terminal to) throws InactiveTerminalException, StateNotChangedException {
     _noComs = false;
-    // FIXME implementar comunicações
+    VOICE voi = new VOICE(this, to);
+    to.acceptVoiceCall(this, voi);
+    set(TerminalMode.BUSY);
+    _madeCommunications.add(voi);
+    _ongoingCom = voi;
+    return voi;
   }
 
-  protected void acceptVoiceCall(Terminal to) {
+  protected void acceptVoiceCall(Terminal from, VOICE voi) throws InactiveTerminalException{
+    if (!from.canStartCommunication()){
+      failedCom(voi);
+      throw new InactiveTerminalException(from.getId(), from.getMode());
+    }
     _noComs = false;
-    // FIXME implementar comunicações
+    _receivedCommunications.add(voi);
+    _ongoingCom = voi;
   }
 
-  public abstract void makeVideoCall(Terminal to);
+  public abstract Communication makeVideoCall(Terminal to) throws UnsuportedAtOrigin, InactiveTerminalException, UnsuportedAtDestination, StateNotChangedException;
 
-  protected abstract void acceptVideoCall(Terminal to);
+  protected abstract void acceptVideoCall(Terminal from, VIDEO vid) throws UnsuportedAtDestination;
 
-  public void endOngoingComunications(int size){
-    // FIXME implementar comunicações
+  public void endOngoingComunication(double dur) throws noOngoingComException{
+    if (!canEndCurrentCommunication()){
+      throw new noOngoingComException();
+    }
+    _ongoingCom.setOngoing(false);
+    computeCost(_ongoingCom);
+    _ongoingCom = null;
   }
 
-  public boolean setOnIdle(){
-    _mode = TerminalMode.IDLE;
-    return true;
+  public void addNotification(Notification n){
+    _notifications.add(n);
   }
 
-  public boolean setOnSilent(){
-    if (_mode == TerminalMode.SILENSE)
-      return false;
-    _mode = TerminalMode.SILENSE;
-    return true;
+  public void deleteNotifications(){
+    _notifications = new ArrayList<>();
   }
 
-  public boolean turnOff(){
-    if (_mode == TerminalMode.OFF)
-      return false;
-    _mode = TerminalMode.OFF;
-    return true;
+  public void sendNotification(TerminalMode changeTo){
+    for (Communication c: _failedComs){
+      Notification note = new Notification(c);
+      note.setType(_mode, changeTo);                         //here lies progress
+      if (!(!(c.getType().equals("TEXT")) && changeTo == TerminalMode.SILENSE))
+        note.send();    //Maybe put an exception in case it dosent send here??
+    }
   }
+
+  public void set(TerminalMode changeTo) throws StateNotChangedException{
+    sendNotification(changeTo);
+    if(_mode == changeTo)
+      throw new StateNotChangedException(this.getId(), _mode);
+    _mode = changeTo;
+    }
+   
   
   /**
    * Checks if this terminal can end the current interactive communication.
@@ -146,7 +205,6 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
    *          it was the originator of this communication.
    **/
   public boolean canEndCurrentCommunication() {
-    // FIXME add implementation code
     return _mode == TerminalMode.BUSY;
   }
   
@@ -156,11 +214,22 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
    * @return true if this terminal is neither off neither busy, false otherwise.
    **/
   public boolean canStartCommunication() {
-    // FIXME add implementation code
-    return !(_mode == TerminalMode.BUSY || _mode == TerminalMode.OFF);
+    return !(_mode == TerminalMode.BUSY || _mode == TerminalMode.OFF || getIsOngoing());
   }
 
-  public void addFriend(String term) {
-    _friends.add(term);
+  private boolean getIsOngoing(){
+    return (_ongoingCom != null)?_ongoingCom.getIsOngoing():false;
+  }
+
+  public void addFriend(String term){
+    
+    if (term != this.getId())
+      _friends.add(term);
+  }
+  
+  public void removeFriend(String term) throws TerminalNotFoundException{
+    if(!_friends.contains(term))
+      throw new TerminalNotFoundException(term);
+    _friends.remove(term); 
   }
 }

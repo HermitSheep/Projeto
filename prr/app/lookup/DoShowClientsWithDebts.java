@@ -3,7 +3,7 @@ package prr.app.lookup;
 import prr.core.Network;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME more imports if needed
+import java.util.List;
 
 /**
  * Show clients with negative balance.
@@ -16,6 +16,13 @@ class DoShowClientsWithDebts extends Command<Network> {
 
   @Override
   protected final void execute() throws CommandException {
-    //FIXME implement command
+    List<String> lines = _receiver.clientsToString();
+    String[] argh;
+    for (String line : lines){
+      argh = line.split("\\|");
+      if ((Integer.parseInt(argh[8]) - Integer.parseInt(argh[9]) < 0))
+        _display.addLine(line);
+    }
+    _display.display();
   }
 }

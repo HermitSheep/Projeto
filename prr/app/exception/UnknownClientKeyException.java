@@ -15,4 +15,7 @@ public class UnknownClientKeyException extends CommandException {
 		super(Message.unknownClientKey(key));
 	}
 
+	public UnknownClientKeyException(String key, Exception e) {
+		super(Message.unknownClientKey(key), e);
+	}
 }

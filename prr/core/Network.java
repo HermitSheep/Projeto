@@ -65,7 +65,8 @@ public class Network implements Serializable {
     if (containsClient(key)) {
       throw new ClientAlreadyExistsException(key);
     }
-    Client cli = new Client(key, name, nif);
+    TariffPlan plan = new BasicPlan();
+    Client cli = new Client(key, name, nif, plan);
     _clients.put(key.toUpperCase(), cli);
   }
 
@@ -85,6 +86,23 @@ public class Network implements Serializable {
     return cli.toString();
   }
 
+
+  public void enableNotification(String key) throws ClientNotFoundException, StateNotChangedException{
+    findClient(key).turnNotiOn();
+  }
+
+  public void disableNotification(String key) throws ClientNotFoundException, StateNotChangedException{
+    findClient(key).turnNotiOff();
+  }
+
+
+  public long getClientPayment(String key) throws ClientNotFoundException{
+    return findClient(key).getPayed();
+  }
+
+  public long getClientDebt (String key) throws ClientNotFoundException{
+    return findClient(key).getDebt();
+  }
 
 
 
@@ -121,9 +139,8 @@ public class Network implements Serializable {
     if (!containsClient(clientKey))
       throw new ClientNotFoundException(clientKey);
       
-    if (type.toUpperCase().equals("FANCY")) { // there might be a better way of checking this, and idk if it has to be
-                                                       // fancyTerminal
-      Fancy term = new Fancy(id, clientKey);
+    if (type.equals("FANCY")) { // there might be a better way of checking this
+      BASIC term = new BASIC(id, findClient(clientKey));
       try {
         term.validateId(id);
       } catch (InvalidTerminalIdException e) {
@@ -134,8 +151,8 @@ public class Network implements Serializable {
       return term;
     }
     
-    else if (type.toUpperCase().equals("BASIC")) {
-      Basic term = new Basic(id, clientKey);
+    else if (type.equals("BASIC")) {
+      BASIC term = new BASIC(id, findClient(clientKey));
       try {
         term.validateId(id);
       } catch (InvalidTerminalIdException b) {
@@ -157,6 +174,39 @@ public class Network implements Serializable {
     return res;
   }
 
+  public double getTerminalPayment(String key) throws TerminalNotFoundException{
+    return findTerminal(key).getPayments();
+  }
+
+  public double getTerminalDebt (String key) throws TerminalNotFoundException{
+    return findTerminal(key).getDebt();
+  }
+
+
+
+  
+
+
+
+  public void sendTextCommunication(Terminal from, String to, String msg) throws TerminalNotFoundException, InactiveTerminalException{
+    Communication com = from.makeSMS(findTerminal(to), msg);
+    _communications.put(com.getId(), com);
+  }
+
+  public void startInteractiveCommunication(Terminal from, String to, String type) throws TerminalNotFoundException, InactiveTerminalException, UnsuportedAtOrigin, UnsuportedAtDestination, StateNotChangedException{
+    Communication com;
+    if (type.equals("VOICE"))
+      com = from.makeVoiceCall(findTerminal(to));
+    else
+      com = from.makeVideoCall(findTerminal(to));
+    _communications.put(com.getId(), com);
+  }
+
+  public void endInteractiveCommunication(Terminal from, String to, double len) {
+    
+  }
+
+
   /**
    * Read text input file and create corresponding domain entities.
    * 
@@ -173,18 +223,28 @@ public class Network implements Serializable {
     }
   }
 
-  public void sendTextCommunication(Terminal from, String toKey, String msg) {
-    // FIXME implement method
+  public void addFriend(String term, String friend) throws TerminalNotFoundException {
+    findTerminal(friend);
+    findTerminal(term).addFriend(friend);
   }
 
-  public void startInteractiveCommunication(Terminal from, String toKey, String type) {
-    // FIXME implement method
+  public void removeFriend(String term, String friend) throws TerminalNotFoundException{
+    findTerminal(term).removeFriend(friend);
   }
 
-  public void addFriend(String term, String friend) {
-    try {
-      findTerminal(term).addFriend(friend);
-    } catch (TerminalNotFoundException e) {
-    }
+  public void silenceTerminal(String term) throws TerminalNotFoundException, StateNotChangedException{
+    findTerminal(term).set(TerminalMode.SILENSE); //I think we cant do that cause TerminalMode is in the Core not in the App but I am too tiered to change code right now but since im kind ill still tell you hwo to do it unless its future me cuase fuck you your a fucking pussy you pussy puss fuckboy femboy. You just need to give like a string or something and it should work. either that or it is better to just have seperate mathods for all the stuff and im a big dumb dumb???
+  }
+
+  public void turnOffTerminal(String term)throws TerminalNotFoundException, StateNotChangedException{
+    findTerminal(term).set(TerminalMode.OFF);
+  }
+
+  public void turnIdleTerminal(String term)throws TerminalNotFoundException, StateNotChangedException{    //On isnt a terminal mode FIXME
+    findTerminal(term).set(TerminalMode.IDLE);
+  }
+
+  public void turnBusyTerminal(String term)throws TerminalNotFoundException, StateNotChangedException{    //On isnt a terminal mode FIXME
+    findTerminal(term).set(TerminalMode.BUSY);
   }
 }

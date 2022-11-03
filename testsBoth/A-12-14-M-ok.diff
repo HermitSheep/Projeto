@@ -1,0 +1,12 @@
+*** testsBoth/A-12-14-M-ok.out	2022-10-30 22:57:53.663214000 +0000
+--- testsBoth/A-12-14-M-ok.outhyp	2022-11-03 15:18:46.624169111 +0000
+***************
+*** 29,35 ****
+  Escolha uma opção: 9
+  Número do terminal: 969012
+  Tipo de comunicação a iniciar (VOICE, VIDEO): VIDEO
+- O terminal de destino ('969012') está desligado.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 29,34 ----

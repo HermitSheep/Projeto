@@ -1,0 +1,12 @@
+*** testsBoth/A-12-09-M-ok.out	2022-10-30 22:57:53.232772000 +0000
+--- testsBoth/A-12-09-M-ok.outhyp	2022-11-03 15:18:45.012219628 +0000
+***************
+*** 43,49 ****
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 11
+- VOICE|1|969001|969007|0|0|ONGOING
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 43,48 ----

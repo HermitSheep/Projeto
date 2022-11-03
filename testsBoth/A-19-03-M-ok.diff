@@ -1,0 +1,89 @@
+*** testsBoth/A-19-03-M-ok.out	2022-10-30 22:57:57.745500000 +0000
+--- testsBoth/A-19-03-M-ok.outhyp	2022-11-03 15:18:58.939783143 +0000
+***************
+*** 17,27 ****
+  BASIC|969003|cli001|OFF|0|0
+  BASIC|969006|cli002|IDLE|0|0
+  BASIC|969007|cli003|IDLE|0|0
+! BASIC|969008|cli003|SILENCE|0|0
+! FANCY|969011|cli001|IDLE|0|0
+! FANCY|969013|cli001|SILENCE|0|0
+! FANCY|969014|cli002|IDLE|0|0
+! FANCY|969015|cli003|IDLE|0|0
+  GESTÃO DE TERMINAIS
+  1 - Mostrar todos os terminais
+  2 - Registar terminal
+--- 17,27 ----
+  BASIC|969003|cli001|OFF|0|0
+  BASIC|969006|cli002|IDLE|0|0
+  BASIC|969007|cli003|IDLE|0|0
+! BASIC|969008|cli003|SILENSE|0|0
+! BASIC|969011|cli001|IDLE|0|0
+! BASIC|969013|cli001|SILENSE|0|0
+! BASIC|969014|cli002|IDLE|0|0
+! BASIC|969015|cli003|IDLE|0|0
+  GESTÃO DE TERMINAIS
+  1 - Mostrar todos os terminais
+  2 - Registar terminal
+***************
+*** 42,48 ****
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 1
+! O terminal já estava ligado.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 42,49 ----
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 1
+! Número do terminal: 0
+! Ligar: Operação inválida: O terminal '0' não existe.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+***************
+*** 55,66 ****
+  9 - Iniciar comunicação
+  11 - Mostrar comunicação em curso
+  0 - Sair
+- Escolha uma opção: 0
+- GESTÃO DE TERMINAIS
+- 1 - Mostrar todos os terminais
+- 2 - Registar terminal
+- 3 - Operações de terminal
+- 0 - Sair
+  Escolha uma opção: 3
+  Número do terminal: 969001
+  OPERAÇÕES DO TERMINAL
+--- 56,61 ----
+***************
+*** 76,82 ****
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 1
+! O terminal já estava ligado.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 71,78 ----
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 1
+! Número do terminal: 0
+! Ligar: Operação inválida: O terminal '0' não existe.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+***************
+*** 104,107 ****
+  5 - Menu de consultas
+  6 - Ver saldo global
+  0 - Sair
+! Escolha uma opção: 0
+--- 100,103 ----
+  5 - Menu de consultas
+  6 - Ver saldo global
+  0 - Sair
+! Escolha uma opção: Fim de entrada de dados (R-EOF): pt.tecnico.uilib.text.RuntimeEOFException: Fim do fluxo de dados de entrada

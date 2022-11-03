@@ -3,6 +3,9 @@ package prr.core;
 import java.io.Serializable;
 import java.util.*;
 
+import javax.swing.TransferHandler;
+import prr.core.exception.StateNotChangedException;
+
 
 public class Client implements Serializable{
   private String _key;
@@ -10,11 +13,12 @@ public class Client implements Serializable{
   private int _nif;
   private ClientLevel _level;
   private List<Terminal> _terminals;
-  private int _payed;
-  private int _debt;
+  private long _payed;
+  private long _debt;
   private boolean _notiSet;
+  private TariffPlan _plan;
 
-  public Client(String k, String n, int nif){
+  public Client(String k, String n, int nif, TariffPlan plan){
       _name = n;
       _key = k;
       _nif = nif;
@@ -23,6 +27,7 @@ public class Client implements Serializable{
       _notiSet = true;
       _debt = 0;
       _payed = 0;
+      _plan = plan;
   }
 
   public String getKey(){
@@ -49,19 +54,35 @@ public class Client implements Serializable{
       return _terminals;
   }
 
-  public int getPayed(){
+  public long getPayed(){
       return _payed;
   }
 
-  public int getDebt(){
+  public long getDebt(){
       return _debt;
   }
 
-  public void turnNotiOn() {
+  public TariffPlan getPlan() {
+    return _plan;
+  }
+
+  public void addDebt(double debt) {
+    _debt += debt;
+  }
+
+  public void addPayed(double payed) {
+    _payed += payed;
+  }
+
+  public void turnNotiOn() throws StateNotChangedException{
+    if (_notiSet)
+      throw new StateNotChangedException(_key, _notiSet);
     _notiSet = true;
   }
 
-  public void turnNotiOff() {
+  public void turnNotiOff() throws StateNotChangedException{
+    if (!_notiSet)
+      throw new StateNotChangedException(_key, _notiSet);
     _notiSet = false;
   }
 
@@ -95,15 +116,20 @@ public class Client implements Serializable{
   }
 
   public String toString() {
-      String client = ("CLIENT|" + _key + "|" + _name + "|" +                         //CLIENT|key|name
-                      String.valueOf(_nif) + "|" + _level.name());                    //|Nif|level
-      if (_notiSet)
-          client += ("|YES");                                                         //|YES
-      else
-          client += ("|NO");                                                          //|NO
-      client += ("|" + String.valueOf(activeTerminals()) + "|" + Math.round(_payed)   //|Active terminals|Payed
-                  + "|" + Math.round(_debt));                                         //|Debt
-      return client;
+    String client = ("CLIENT|" + _key + "|" + _name + "|" +                         //CLIENT|key|name
+                    String.valueOf(_nif) + "|" + _level.name());                    //|Nif|level
+    if (_notiSet)
+        client += ("|YES");                                                         //|YES
+    else
+        client += ("|NO");                                                          //|NO
+    client += ("|" + String.valueOf(activeTerminals()) + "|" + Math.round(_payed)   //|Active terminals|Payed
+                + "|" + Math.round(_debt) + "\n");                                   //|Debt
+    for (Terminal t: _terminals){
+      for (Notification n: t.getNotifications()){         //FIXMEPLS getNotifications doesnt exist, nor toString
+        client += n.toString() + "\n";
+      }
+      client += t.getId();
+    }
+    return client;
   }
-  
 }

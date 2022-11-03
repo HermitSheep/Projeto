@@ -3,51 +3,61 @@ package prr.core;
 import java.io.Serializable;
 
 public abstract class Communication implements Serializable{
+  private static int _totalComs;     // because their scope is "all the users", this way the network might not need to have a list of coms too
   private int _id;
   private boolean _isPaid;
   double _cost;
   boolean _isOngoing;
+  Terminal _to;
+  Terminal _from;
+  String _type;
+
+  public Communication(Terminal from, Terminal to) {
+    _totalComs++;
+    _id = _totalComs;
+    _from = from;
+    _to = to;
+  }
 
   public int getId() {
      return _id;
-  }
-  
-  public boolean getIsPaid() {
-     return _isPaid;
   }
 
   public double getCost() {
      return _cost;
   }
 
+  public void setOngoing(boolean set) {
+    _isOngoing = set;
+  }
+
   public boolean getIsOngoing() {
-     return _isOngoing;
+    return _isOngoing;
   }
 
-  public void makeSMS(Terminal to, String message) {
-    //FIXME implement method
+  public String getType() {
+     return _type;
   }
 
-  protected void acceptSMS(Terminal from) {
-    //FIXME implement method
+  public Terminal getTo(){
+    return _to;
   }
 
-  public void makeVoiceCall(Terminal to) {
-    //FIXME implement method
+  public Terminal getFrom(){
+    return _from;
   }
 
   public String toString() {
-    //FIXME implement method
-    return null;
+    String com = (this.getClass().getSimpleName() + "|" + _id + "|" + _from.getId() + "|" +
+    _to.getId() + "|" + getSize() + "|" + String.valueOf(_cost) + "|");
+    if (_isOngoing)
+      com += "ONGOING";
+    else {com += "FINISHED";}
+    return com;
   }
 
-  protected double computeCost(TariffPlan plan) {
-    //FIXME implement method
-    return 0;
-  }
+  protected abstract double computeCost(TariffPlan plan);
 
-  protected int getSize(){
+  protected abstract int getSize();       //Must return 0 if it's ongoing (acording to the tests)
     //FIXME implement method
-    return 0;
-  }
 }

@@ -1,0 +1,45 @@
+*** testsBoth/A-13-03-M-ok.out	2022-10-30 22:57:53.963856000 +0000
+--- testsBoth/A-13-03-M-ok.outhyp	2022-11-03 15:18:47.244149681 +0000
+***************
+*** 37,47 ****
+  5 - Retirar amigo
+  6 - Pagamento
+  7 - Consultar saldo
+! 10 - Terminar comunicação activa
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 11
+- VIDEO|1|969015|969014|0|0|ONGOING
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 37,47 ----
+  5 - Retirar amigo
+  6 - Pagamento
+  7 - Consultar saldo
+! 8 - Enviar comunicação de texto
+! 9 - Iniciar comunicação
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 11
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+***************
+*** 50,56 ****
+  5 - Retirar amigo
+  6 - Pagamento
+  7 - Consultar saldo
+! 10 - Terminar comunicação activa
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 0
+--- 50,57 ----
+  5 - Retirar amigo
+  6 - Pagamento
+  7 - Consultar saldo
+! 8 - Enviar comunicação de texto
+! 9 - Iniciar comunicação
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 0

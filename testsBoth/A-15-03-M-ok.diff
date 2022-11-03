@@ -1,0 +1,13 @@
+*** testsBoth/A-15-03-M-ok.out	2022-10-30 22:57:54.918669000 +0000
+--- testsBoth/A-15-03-M-ok.outhyp	2022-11-03 15:18:50.024062559 +0000
+***************
+*** 102,109 ****
+  7 - Mostrar terminais com saldo positivo
+  0 - Sair
+  Escolha uma opção: 1
+- TEXT|1|969001|969007|100|200|FINISHED
+- TEXT|2|969011|969014|102|204|FINISHED
+  CONSULTAS
+  1 - Mostrar todas as comunicações
+  2 - Mostrar comunicações feitas por um cliente
+--- 102,107 ----

@@ -1,0 +1,85 @@
+*** testsBoth/A-15-04-M-ok.out	2022-10-30 22:57:55.019161000 +0000
+--- testsBoth/A-15-04-M-ok.outhyp	2022-11-03 15:18:50.236055916 +0000
+***************
+*** 48,55 ****
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 10
+- Duração da comunicação (em minutos): 10
+- Custo da comunicação: 200 unidades.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 48,53 ----
+***************
+*** 58,65 ****
+  5 - Retirar amigo
+  6 - Pagamento
+  7 - Consultar saldo
+! 8 - Enviar comunicação de texto
+! 9 - Iniciar comunicação
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 0
+--- 56,74 ----
+  5 - Retirar amigo
+  6 - Pagamento
+  7 - Consultar saldo
+! 10 - Terminar comunicação activa
+! 11 - Mostrar comunicação em curso
+! 0 - Sair
+! Escolha uma opção: 10
+! OPERAÇÕES DO TERMINAL
+! 1 - Ligar
+! 2 - Colocar no silêncio
+! 3 - Desligar
+! 4 - Adicionar amigo
+! 5 - Retirar amigo
+! 6 - Pagamento
+! 7 - Consultar saldo
+! 10 - Terminar comunicação activa
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 0
+***************
+*** 97,104 ****
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 10
+- Duração da comunicação (em minutos): 40
+- Custo da comunicação: 800 unidades.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 106,111 ----
+***************
+*** 107,114 ****
+  5 - Retirar amigo
+  6 - Pagamento
+  7 - Consultar saldo
+! 8 - Enviar comunicação de texto
+! 9 - Iniciar comunicação
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 0
+--- 114,133 ----
+  5 - Retirar amigo
+  6 - Pagamento
+  7 - Consultar saldo
+! 10 - Terminar comunicação activa
+! 11 - Mostrar comunicação em curso
+! 0 - Sair
+! Escolha uma opção: 40
+! Opção inválida!
+! OPERAÇÕES DO TERMINAL
+! 1 - Ligar
+! 2 - Colocar no silêncio
+! 3 - Desligar
+! 4 - Adicionar amigo
+! 5 - Retirar amigo
+! 6 - Pagamento
+! 7 - Consultar saldo
+! 10 - Terminar comunicação activa
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 0

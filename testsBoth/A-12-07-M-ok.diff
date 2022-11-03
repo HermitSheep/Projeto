@@ -1,0 +1,65 @@
+*** testsBoth/A-12-07-M-ok.out	2022-10-30 22:57:53.033612000 +0000
+--- testsBoth/A-12-07-M-ok.outhyp	2022-11-03 15:18:44.312241566 +0000
+***************
+*** 41,47 ****
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 11
+- VOICE|1|969001|969005|0|0|ONGOING
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 41,46 ----
+***************
+*** 76,82 ****
+  Escolha uma opção: 9
+  Número do terminal: 969001
+  Tipo de comunicação a iniciar (VOICE, VIDEO): VOICE
+- O terminal de destino ('969001') está ocupado.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 75,80 ----
+***************
+*** 85,96 ****
+  5 - Retirar amigo
+  6 - Pagamento
+  7 - Consultar saldo
+! 8 - Enviar comunicação de texto
+! 9 - Iniciar comunicação
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 11
+- Não existe nenhuma comunicação em curso.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 83,92 ----
+  5 - Retirar amigo
+  6 - Pagamento
+  7 - Consultar saldo
+! 10 - Terminar comunicação activa
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 11
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+***************
+*** 99,106 ****
+  5 - Retirar amigo
+  6 - Pagamento
+  7 - Consultar saldo
+! 8 - Enviar comunicação de texto
+! 9 - Iniciar comunicação
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 0
+--- 95,101 ----
+  5 - Retirar amigo
+  6 - Pagamento
+  7 - Consultar saldo
+! 10 - Terminar comunicação activa
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 0
