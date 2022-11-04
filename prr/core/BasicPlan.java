@@ -3,7 +3,7 @@ package prr.core;
 public class BasicPlan extends TariffPlan{
   public BasicPlan(){}
 
-  protected double computeCost(Client cli, TEXT com) {
+  protected long computeCost(Client cli, TEXT com) {
     int len = com.getSize();
     ClientLevel lev = cli.getLevel();
     if (len < 50) {
@@ -25,7 +25,7 @@ public class BasicPlan extends TariffPlan{
     }
   }
 
-  protected double computeCost(Client cli, VOICE com) {
+  protected long computeCost(Client cli, VOICE com) {
     int len = com.getSize();
     ClientLevel lev = cli.getLevel();
     if (lev == ClientLevel.NORMAL)
@@ -33,7 +33,7 @@ public class BasicPlan extends TariffPlan{
     else {return 10*len;}
   }
 
-  protected double computeCost(Client cli, VIDEO com){
+  protected long computeCost(Client cli, VIDEO com){
     int len = com.getSize();
     ClientLevel lev = cli.getLevel();
     if (lev == ClientLevel.NORMAL)

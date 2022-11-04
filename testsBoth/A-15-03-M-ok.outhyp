@@ -95,17 +95,19 @@ Escolha uma opção: 5
 CONSULTAS
 1 - Mostrar todas as comunicações
 2 - Mostrar comunicações feitas por um cliente
-3 - Mostrar comunicações recebidas por um cliente
+3 - Mostrar comunicações feitas por um cliente
 4 - Mostrar clientes sem dívidas
 5 - Mostrar clientes com dívidas
 6 - Mostrar terminais sem actividade
 7 - Mostrar terminais com saldo positivo
 0 - Sair
 Escolha uma opção: 1
+TEXT|1|969001|969007|100|200|FINISHED
+TEXT|2|969011|969014|102|204|FINISHED
 CONSULTAS
 1 - Mostrar todas as comunicações
 2 - Mostrar comunicações feitas por um cliente
-3 - Mostrar comunicações recebidas por um cliente
+3 - Mostrar comunicações feitas por um cliente
 4 - Mostrar clientes sem dívidas
 5 - Mostrar clientes com dívidas
 6 - Mostrar terminais sem actividade

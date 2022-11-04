@@ -1,15 +1,5 @@
 *** testsBoth/A-14-02-M-ok.out	2022-10-30 22:57:54.301788000 +0000
---- testsBoth/A-14-02-M-ok.outhyp	2022-11-03 15:18:48.204119596 +0000
-***************
-*** 41,47 ****
-  11 - Mostrar comunicação em curso
-  0 - Sair
-  Escolha uma opção: 11
-- VOICE|1|969001|969011|0|0|ONGOING
-  OPERAÇÕES DO TERMINAL
-  1 - Ligar
-  2 - Colocar no silêncio
---- 41,46 ----
+--- testsBoth/A-14-02-M-ok.outhyp	2022-11-04 10:00:57.186002057 +0000
 ***************
 *** 64,74 ****
   BASIC|969003|cli001|OFF|0|0
@@ -23,7 +13,7 @@
   GESTÃO DE TERMINAIS
   1 - Mostrar todos os terminais
   2 - Registar terminal
---- 63,73 ----
+--- 64,74 ----
   BASIC|969003|cli001|OFF|0|0
   BASIC|969006|cli002|IDLE|0|0
   BASIC|969007|cli003|IDLE|0|0

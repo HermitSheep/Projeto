@@ -1,5 +1,5 @@
 *** testsBoth/A-14-03-M-ok.out	2022-10-30 22:57:54.418616000 +0000
---- testsBoth/A-14-03-M-ok.outhyp	2022-11-03 15:18:48.520109692 +0000
+--- testsBoth/A-14-03-M-ok.outhyp	2022-11-04 10:00:57.817982738 +0000
 ***************
 *** 51,61 ****
   BASIC|969003|cli001|OFF|0|0
@@ -26,61 +26,22 @@
   1 - Mostrar todos os terminais
   2 - Registar terminal
 ***************
-*** 75,82 ****
-  11 - Mostrar comunicação em curso
+*** 76,82 ****
   0 - Sair
   Escolha uma opção: 10
-- Duração da comunicação (em minutos): 1
-- Custo da comunicação: 20 unidades.
+  Duração da comunicação (em minutos): 1
+! Custo da comunicação: 20 unidades.
   OPERAÇÕES DO TERMINAL
   1 - Ligar
   2 - Colocar no silêncio
---- 75,80 ----
-***************
-*** 85,96 ****
-  5 - Retirar amigo
-  6 - Pagamento
-  7 - Consultar saldo
-! 8 - Enviar comunicação de texto
-! 9 - Iniciar comunicação
-  11 - Mostrar comunicação em curso
+--- 76,82 ----
   0 - Sair
-! Escolha uma opção: 11
-! Não existe nenhuma comunicação em curso.
+  Escolha uma opção: 10
+  Duração da comunicação (em minutos): 1
+! Custo da comunicação: 0 unidades.
   OPERAÇÕES DO TERMINAL
   1 - Ligar
   2 - Colocar no silêncio
---- 83,94 ----
-  5 - Retirar amigo
-  6 - Pagamento
-  7 - Consultar saldo
-! 10 - Terminar comunicação activa
-  11 - Mostrar comunicação em curso
-  0 - Sair
-! Escolha uma opção: 1
-! Número do terminal: 11
-! Ligar: Operação inválida: O terminal '11' não existe.
-  OPERAÇÕES DO TERMINAL
-  1 - Ligar
-  2 - Colocar no silêncio
-***************
-*** 99,106 ****
-  5 - Retirar amigo
-  6 - Pagamento
-  7 - Consultar saldo
-! 8 - Enviar comunicação de texto
-! 9 - Iniciar comunicação
-  11 - Mostrar comunicação em curso
-  0 - Sair
-  Escolha uma opção: 0
---- 97,103 ----
-  5 - Retirar amigo
-  6 - Pagamento
-  7 - Consultar saldo
-! 10 - Terminar comunicação activa
-  11 - Mostrar comunicação em curso
-  0 - Sair
-  Escolha uma opção: 0
 ***************
 *** 110,124 ****
   3 - Operações de terminal
@@ -98,11 +59,11 @@
   GESTÃO DE TERMINAIS
   1 - Mostrar todos os terminais
   2 - Registar terminal
---- 107,121 ----
+--- 110,124 ----
   3 - Operações de terminal
   0 - Sair
   Escolha uma opção: 1
-! BASIC|969001|cli001|BUSY|0|0
+! BASIC|969001|cli001|IDLE|0|0
   BASIC|969003|cli001|OFF|0|0
   BASIC|969006|cli002|IDLE|0|0
   BASIC|969007|cli003|IDLE|0|0

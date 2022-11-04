@@ -100,6 +100,8 @@ OPERAÇÕES DO TERMINAL
 11 - Mostrar comunicação em curso
 0 - Sair
 Escolha uma opção: 10
+Duração da comunicação (em minutos): 1
+Custo da comunicação: 0 unidades.
 OPERAÇÕES DO TERMINAL
 1 - Ligar
 2 - Colocar no silêncio
@@ -108,12 +110,12 @@ OPERAÇÕES DO TERMINAL
 5 - Retirar amigo
 6 - Pagamento
 7 - Consultar saldo
-10 - Terminar comunicação activa
+8 - Enviar comunicação de texto
+9 - Iniciar comunicação
 11 - Mostrar comunicação em curso
 0 - Sair
-Escolha uma opção: 1
-Número do terminal: 11
-Ligar: Operação inválida: O terminal '11' não existe.
+Escolha uma opção: 11
+Não existe nenhuma comunicação em curso.
 OPERAÇÕES DO TERMINAL
 1 - Ligar
 2 - Colocar no silêncio
@@ -122,7 +124,8 @@ OPERAÇÕES DO TERMINAL
 5 - Retirar amigo
 6 - Pagamento
 7 - Consultar saldo
-10 - Terminar comunicação activa
+8 - Enviar comunicação de texto
+9 - Iniciar comunicação
 11 - Mostrar comunicação em curso
 0 - Sair
 Escolha uma opção: 0
@@ -136,7 +139,7 @@ BASIC|969001|cli001|IDLE|0|0
 BASIC|969003|cli001|OFF|0|0
 BASIC|969006|cli002|IDLE|0|0
 BASIC|969007|cli003|IDLE|0|0
-BASIC|969008|cli003|BUSY|0|0
+BASIC|969008|cli003|IDLE|0|0
 BASIC|969011|cli001|IDLE|0|0
 BASIC|969013|cli001|SILENSE|0|0
 BASIC|969014|cli002|IDLE|0|0

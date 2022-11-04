@@ -1,5 +1,5 @@
 *** testsBoth/A-12-10-M-ok.out	2022-10-30 22:57:53.327386000 +0000
---- testsBoth/A-12-10-M-ok.outhyp	2022-11-03 15:18:45.372208347 +0000
+--- testsBoth/A-12-10-M-ok.outhyp	2022-11-04 10:00:52.510144999 +0000
 ***************
 *** 37,47 ****
   5 - Retirar amigo
@@ -9,11 +9,11 @@
   11 - Mostrar comunicação em curso
   0 - Sair
   Escolha uma opção: 11
-- VIDEO|1|969011|969012|0|0|ONGOING
+! VIDEO|1|969011|969012|0|0|ONGOING
   OPERAÇÕES DO TERMINAL
   1 - Ligar
   2 - Colocar no silêncio
---- 37,47 ----
+--- 37,48 ----
   5 - Retirar amigo
   6 - Pagamento
   7 - Consultar saldo
@@ -22,6 +22,7 @@
   11 - Mostrar comunicação em curso
   0 - Sair
   Escolha uma opção: 11
+! Não existe nenhuma comunicação em curso.
   OPERAÇÕES DO TERMINAL
   1 - Ligar
   2 - Colocar no silêncio
@@ -34,7 +35,7 @@
   11 - Mostrar comunicação em curso
   0 - Sair
   Escolha uma opção: 0
---- 50,57 ----
+--- 51,58 ----
   5 - Retirar amigo
   6 - Pagamento
   7 - Consultar saldo

@@ -7,7 +7,9 @@ public class VOICE extends InteractiveCommunication{
     _type = "VOICE";
   }
 
-  protected double computeCost(TariffPlan plan) {
-    return plan.computeCost(_from.getClient(), this);
+  protected long computeCost(TariffPlan plan) {
+    long cost = plan.computeCost(_from.getClient(), this);
+    _cost = cost;
+    return cost;
   }
 }

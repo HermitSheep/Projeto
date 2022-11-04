@@ -1,12 +1,14 @@
 package prr.core;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.ArrayList;
 
 public abstract class Communication implements Serializable{
   private static int _totalComs;     // because their scope is "all the users", this way the network might not need to have a list of coms too
   private int _id;
   private boolean _isPaid;
-  double _cost;
+  long _cost;
   boolean _isOngoing;
   Terminal _to;
   Terminal _from;
@@ -47,16 +49,28 @@ public abstract class Communication implements Serializable{
     return _from;
   }
 
+  public boolean isPayed(){
+    return _isPaid;
+  }
+
+  public void payCom(){
+    _isPaid = true;
+  }
+
+  public void setCost(long cost){
+    _cost = cost;
+  }
+
   public String toString() {
     String com = (this.getClass().getSimpleName() + "|" + _id + "|" + _from.getId() + "|" +
-    _to.getId() + "|" + getSize() + "|" + String.valueOf(_cost) + "|");
+    _to.getId() + "|" + getSize() + "|" + Math.round(_cost) + "|");
     if (_isOngoing)
       com += "ONGOING";
     else {com += "FINISHED";}
     return com;
   }
 
-  protected abstract double computeCost(TariffPlan plan);
+  protected abstract long computeCost(TariffPlan plan);
 
   protected abstract int getSize();       //Must return 0 if it's ongoing (acording to the tests)
     //FIXME implement method

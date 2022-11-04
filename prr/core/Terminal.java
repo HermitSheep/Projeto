@@ -5,11 +5,14 @@ import java.util.*;
 
 import prr.core.exception.InactiveTerminalException;
 import prr.core.exception.InvalidTerminalIdException;
-import prr.core.exception.noOngoingComException;
+import prr.core.exception.cantEndComException;
 import prr.core.exception.UnsuportedAtOrigin;
 import prr.core.exception.UnsuportedAtDestination;
 import prr.core.exception.StateNotChangedException;
 import prr.core.exception.TerminalNotFoundException;
+import prr.core.exception.NoOngoigComException;
+import prr.core.exception.ComNotFoundException;
+import prr.core.exception.CommunicationAlreadyPayedException;
 
 // FIXME add more import if needed (cannot import from pt.tecnico or prr.app)
 
@@ -115,11 +118,12 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
     _failedComs.add(failure);
   }
 
-  private void computeCost(Communication c){
-    double cost;
+  private long computeCost(Communication c){
+    long cost;
     cost = c.computeCost(_client.getPlan());  //NAO ESQUECER DESCONTO DE AMIGO !!!!!!!!
     _debit += cost;
     _client.addDebt(cost);
+    return cost;
   }
   
   public Communication makeSMS(Terminal to, String msg) throws InactiveTerminalException{
@@ -128,6 +132,8 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
     to.acceptSMS(this, txt);
     computeCost(txt);
     _madeCommunications.add(txt);
+    _client.addMadeCom(txt);
+    to.getClient().addReceivedCom(txt);
     return txt;
   }
 
@@ -147,6 +153,8 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
     set(TerminalMode.BUSY);
     _madeCommunications.add(voi);
     _ongoingCom = voi;
+    _client.addMadeCom(voi);
+    to.getClient().addReceivedCom(voi);
     return voi;
   }
 
@@ -164,13 +172,14 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
 
   protected abstract void acceptVideoCall(Terminal from, VIDEO vid) throws UnsuportedAtDestination;
 
-  public void endOngoingComunication(double dur) throws noOngoingComException{
-    if (!canEndCurrentCommunication()){
-      throw new noOngoingComException();
-    }
+  public long endOngoingComunication(double dur) throws StateNotChangedException{
+    long cost;
+    canEndCurrentCommunication();
     _ongoingCom.setOngoing(false);
-    computeCost(_ongoingCom);
+    cost = computeCost(_ongoingCom);
     _ongoingCom = null;
+    set(TerminalMode.IDLE);
+    return cost;
   }
 
   public void addNotification(Notification n){
@@ -196,6 +205,19 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
       throw new StateNotChangedException(this.getId(), _mode);
     _mode = changeTo;
     }
+
+  public void payCom(Communication com) throws CommunicationAlreadyPayedException, ComNotFoundException, NoOngoigComException{
+    if (_madeCommunications.contains(com)){
+      if (!com.isPayed())
+        throw new CommunicationAlreadyPayedException();
+      if (com.getIsOngoing())
+        throw new NoOngoigComException();
+      _payments += com.getCost();
+      _debit -= com.getCost();
+      com.payCom();
+    }
+    else throw new ComNotFoundException(com.getId());
+  }
    
   
   /**
@@ -205,7 +227,9 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
    *          it was the originator of this communication.
    **/
   public boolean canEndCurrentCommunication() {
-    return _mode == TerminalMode.BUSY;
+    if (_mode != TerminalMode.BUSY || _id != _ongoingCom.getFrom().getId())
+      return false;
+    return true;
   }
   
   /**
@@ -231,5 +255,11 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
     if(!_friends.contains(term))
       throw new TerminalNotFoundException(term);
     _friends.remove(term); 
+  }
+
+  public String showOngoingCom() throws NoOngoigComException{
+    if (_ongoingCom == null)
+      throw new NoOngoigComException();
+    return _ongoingCom.toString();
   }
 }

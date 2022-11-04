@@ -16,6 +16,8 @@ public class FANCY extends Terminal {
     _madeCommunications.add(vid);
     to.acceptVideoCall(this, vid);
     _ongoingCom = vid;
+    _client.addMadeCom(vid);
+    to.getClient().addReceivedCom(vid);
     return vid;
   }
 

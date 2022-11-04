@@ -55,6 +55,18 @@ public class Network implements Serializable {
     return _clients.get(key.toUpperCase());
   }
 
+  public Communication findCom(int id) throws ComNotFoundException {
+    if (!containsCom(id))
+      throw new ComNotFoundException(id);
+    return _communications.get(id);
+  }
+
+  public boolean containsCom(int id) {
+    if (_communications.get(id) == null)
+      return false;
+    return true;
+  }
+
   public boolean containsClient(String cli) {
     if (_clients.get(cli.toUpperCase()) == null)
       return false;
@@ -202,8 +214,25 @@ public class Network implements Serializable {
     _communications.put(com.getId(), com);
   }
 
-  public void endInteractiveCommunication(Terminal from, String to, double len) {
-    
+  public long endInteractiveCommunication(Terminal term, double dur) throws StateNotChangedException {
+    return term.endOngoingComunication(dur);
+  }
+
+  public List<String> comsToClient(String cli) throws ClientNotFoundException {
+    return findClient(cli).ComsMadeToString();
+  }
+
+  public List<String> comsFromClient(String cli) throws ClientNotFoundException {
+    return findClient(cli).ComsReceivedToString();
+  }
+
+  public List<String> showAllComs() {
+    Set<Integer> coms = _communications.keySet();
+    List<String> lines = new ArrayList<String>();
+    for (Integer com : coms) {
+      lines.add(_communications.get(com).toString());
+    }
+    return lines;
   }
 
 

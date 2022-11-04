@@ -88,7 +88,7 @@ Escolha uma opção: 5
 CONSULTAS
 1 - Mostrar todas as comunicações
 2 - Mostrar comunicações feitas por um cliente
-3 - Mostrar comunicações recebidas por um cliente
+3 - Mostrar comunicações feitas por um cliente
 4 - Mostrar clientes sem dívidas
 5 - Mostrar clientes com dívidas
 6 - Mostrar terminais sem actividade
@@ -98,7 +98,7 @@ Escolha uma opção: 1
 CONSULTAS
 1 - Mostrar todas as comunicações
 2 - Mostrar comunicações feitas por um cliente
-3 - Mostrar comunicações recebidas por um cliente
+3 - Mostrar comunicações feitas por um cliente
 4 - Mostrar clientes sem dívidas
 5 - Mostrar clientes com dívidas
 6 - Mostrar terminais sem actividade

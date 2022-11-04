@@ -17,6 +17,8 @@ public class Client implements Serializable{
   private long _debt;
   private boolean _notiSet;
   private TariffPlan _plan;
+  protected List<Communication> _madeCommunications;
+  protected List<Communication> _receivedCommunications;
 
   public Client(String k, String n, int nif, TariffPlan plan){
       _name = n;
@@ -28,6 +30,8 @@ public class Client implements Serializable{
       _debt = 0;
       _payed = 0;
       _plan = plan;
+      _madeCommunications = new ArrayList<>();
+      _receivedCommunications = new ArrayList<>();
   }
 
   public String getKey(){
@@ -72,6 +76,15 @@ public class Client implements Serializable{
 
   public void addPayed(double payed) {
     _payed += payed;
+  }
+
+
+  public void addMadeCom(Communication com) {
+    _madeCommunications.add(com);
+  }
+
+  public void addReceivedCom(Communication com) {
+    _receivedCommunications.add(com);
   }
 
   public void turnNotiOn() throws StateNotChangedException{
@@ -131,5 +144,21 @@ public class Client implements Serializable{
       client += t.getId();
     }
     return client;
+  }
+
+  public List<String> ComsMadeToString() {
+    List<String> coms = new ArrayList<String>();
+    for (Communication com : _madeCommunications) {
+      coms.add(com.toString());
+    }
+    return coms;
+  }
+
+  public List<String> ComsReceivedToString() {
+    List<String> coms = new ArrayList<String>();
+    for (Communication com : _receivedCommunications) {
+      coms.add(com.toString());
+    }
+    return coms;
   }
 }

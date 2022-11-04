@@ -8,8 +8,10 @@ public class TEXT extends Communication{
     _type = "TEXT";
   }
 
-  protected double computeCost(TariffPlan plan) {
-    return plan.computeCost(_from.getClient(), this);
+  protected long computeCost(TariffPlan plan) {
+    long cost = plan.computeCost(_from.getClient(), this);
+    _cost = cost;
+    return cost;
   }
 
   protected int getSize() {
