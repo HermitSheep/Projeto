@@ -11,23 +11,20 @@ import prr.app.exception.UnknownTerminalKeyException;
  * Silence the terminal.
  */
 class DoSilenceTerminal extends TerminalCommand {
-  Network _context;
 
   DoSilenceTerminal(Network context, Terminal terminal) {
     super(Label.MUTE_TERMINAL, context, terminal);
-    _context = context;
-    addStringField("terminal", Message.terminalKey());
   }
   
   @Override
   protected final void execute() throws CommandException {
-    String terminal = stringField("terminal");
-    try {_context.silenceTerminal(terminal);}    
+    try {_network.silenceTerminal(_receiver.getId());}    
     catch (TerminalNotFoundException e) {       
-      throw new UnknownTerminalKeyException(e.getTerminal());   
+      throw new UnknownTerminalKeyException(e.getTerminal());  
     }
     catch(StateNotChangedException e){
-      System.out.println(Message.alreadySilent());
+      _display.addLine(Message.alreadySilent());
+      _display.display();
     }
   }
 }

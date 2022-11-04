@@ -12,17 +12,20 @@ public class Notification implements Serializable{
 
   public void setType(TerminalMode current, TerminalMode changeTo){
     if(current == TerminalMode.OFF){
-      if(changeTo == TerminalMode.SILENSE)
+      if(changeTo == TerminalMode.SILENCE)
         _type = NotificationType.O2S;
       if(changeTo == TerminalMode.IDLE)
         _type = NotificationType.O2I;
     }
     if (current == TerminalMode.BUSY){
-      if(changeTo == TerminalMode.SILENSE)
+      if(changeTo == TerminalMode.SILENCE)
         _type = NotificationType.B2S;
       if(changeTo == TerminalMode.IDLE)
         _type = NotificationType.B2I;
     }
+    if (current == TerminalMode.SILENCE)
+      if (changeTo == TerminalMode.IDLE)
+        _type = NotificationType.S2I;
   }
 
   public Communication com(){
@@ -30,7 +33,7 @@ public class Notification implements Serializable{
   }
 
   public void send(){
-    _com.getTo().addNotification(this);
+    _com.getFrom().addNotification(this);
   }
 
   public String toString() {
@@ -43,6 +46,9 @@ public class Notification implements Serializable{
     res = "B2S|";
   if (_type == NotificationType.B2I)
     res = "B2I|";
+  if (_type == NotificationType.S2I)
+    res = "S2I|";
+  res += _com.getTo().getId();
   return res;
   }
   

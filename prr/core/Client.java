@@ -19,6 +19,7 @@ public class Client implements Serializable{
   private TariffPlan _plan;
   protected List<Communication> _madeCommunications;
   protected List<Communication> _receivedCommunications;
+  protected List<Notification> _notifications;
 
   public Client(String k, String n, int nif, TariffPlan plan){
       _name = n;
@@ -32,6 +33,7 @@ public class Client implements Serializable{
       _plan = plan;
       _madeCommunications = new ArrayList<>();
       _receivedCommunications = new ArrayList<>();
+      _notifications = new ArrayList<>();
   }
 
   public String getKey(){
@@ -103,21 +105,24 @@ public class Client implements Serializable{
     _terminals.add(term);
   }
 
+  public void addNotification(Notification n1){
+    for (Notification n: _notifications){
+      if (n.com().getTo().getId() == n1.com().getTo().getId())
+        return;
+    }
+    _notifications.add(n1);
+  }
+
+  public void deleteNotifications(){
+    _notifications = new ArrayList<>();
+  }
+
   public List<Notification> getNotifications() {
-      List<Notification> noti = new ArrayList<Notification>();
-      for (Terminal term : _terminals) {
-          if (!term.getNotifications().isEmpty())
-          noti.addAll(term.getNotifications());
-      }
-      return noti;
+      return _notifications;
   }
 
   public boolean hasNotifications() {
-      for (Terminal term : _terminals) {
-          if (!term.getNotifications().isEmpty())
-          return true;
-      }
-      return false;
+      return !_notifications.isEmpty();
   }
 
   public int activeTerminals() {
@@ -135,14 +140,8 @@ public class Client implements Serializable{
         client += ("|YES");                                                         //|YES
     else
         client += ("|NO");                                                          //|NO
-    client += ("|" + String.valueOf(activeTerminals()) + "|" + Math.round(_payed)   //|Active terminals|Payed
-                + "|" + Math.round(_debt) + "\n");                                   //|Debt
-    for (Terminal t: _terminals){
-      for (Notification n: t.getNotifications()){         //FIXMEPLS getNotifications doesnt exist, nor toString
-        client += n.toString() + "\n";
-      }
-      client += t.getId();
-    }
+    client += ("|" + String.valueOf(_terminals.size()) + "|" + Math.round(_payed)   //|Active terminals|Payed
+                + "|" + Math.round(_debt));                                   //|Debt
     return client;
   }
 

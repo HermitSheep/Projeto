@@ -15,16 +15,14 @@ class DoAddFriend extends TerminalCommand {
   DoAddFriend(Network context, Terminal terminal) {
     super(Label.ADD_FRIEND, context, terminal);
     _context = context;
-    addStringField("terminal", Message.terminalKey());
     addStringField("friend", Message.terminalKey());
   }
   
   @Override
   protected final void execute() throws CommandException {
-    String terminal = stringField("terminal");
     String friend = stringField("friend");
 
-    try {_context.addFriend(friend, terminal);}    
+    try {_context.addFriend(_receiver.getId(), friend);}
     catch (TerminalNotFoundException e) {       
       throw new UnknownTerminalKeyException(e.getTerminal());   //the teach made this one and didnt make a constructur that takes exceptions, so fuck it
     }

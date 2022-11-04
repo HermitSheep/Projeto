@@ -15,11 +15,9 @@ import prr.core.exception.UnavailableTerminalException;
  * Command for sending a text communication.
  */
 class DoSendTextCommunication extends TerminalCommand {
-  Network _context;
 
   DoSendTextCommunication(Network context, Terminal terminal) {
     super(Label.SEND_TEXT_COMMUNICATION, context, terminal, receiver -> receiver.canStartCommunication());
-    _context = context;
     addStringField("sendTo", Message.terminalKey());
     addStringField("msg", Message.textMessage());
   }
@@ -29,13 +27,14 @@ class DoSendTextCommunication extends TerminalCommand {
     String sendTo = stringField("sendTo");
     String msg = stringField("msg");
     try {
-      _context.sendTextCommunication(_receiver, sendTo, msg);
+      _network.sendTextCommunication(_receiver, sendTo, msg);
     }
     catch (TerminalNotFoundException e) {
       throw new UnknownTerminalKeyException(e.getTerminal());     //n sei se a mensagem operação inválida é mandada
     }
     catch (UnavailableTerminalException a) {
-      throw new DestinationTerminalOffException(sendTo);
+      _display.addLine(Message.destinationIsOff(sendTo));
+      _display.display();
     }
   }
 } 

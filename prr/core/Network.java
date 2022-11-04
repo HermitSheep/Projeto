@@ -98,6 +98,14 @@ public class Network implements Serializable {
     return cli.toString();
   }
 
+  public List<String> notiToString(String key){
+    List<String> notis = new ArrayList<String>();
+    for (Notification n: _clients.get(key.toUpperCase()).getNotifications()){
+        notis.add(n.toString());
+      }
+      _clients.get(key.toUpperCase()).deleteNotifications();
+    return notis;
+  }
 
   public void enableNotification(String key) throws ClientNotFoundException, StateNotChangedException{
     findClient(key).turnNotiOn();
@@ -152,7 +160,7 @@ public class Network implements Serializable {
       throw new ClientNotFoundException(clientKey);
       
     if (type.equals("FANCY")) { // there might be a better way of checking this
-      BASIC term = new BASIC(id, findClient(clientKey));
+      FANCY term = new FANCY(id, findClient(clientKey));
       try {
         term.validateId(id);
       } catch (InvalidTerminalIdException e) {
@@ -186,12 +194,12 @@ public class Network implements Serializable {
     return res;
   }
 
-  public double getTerminalPayment(String key) throws TerminalNotFoundException{
-    return findTerminal(key).getPayments();
+  public long getTerminalPayment(String key) throws TerminalNotFoundException{
+    return (long)findTerminal(key).getPayments();
   }
 
-  public double getTerminalDebt (String key) throws TerminalNotFoundException{
-    return findTerminal(key).getDebt();
+  public long getTerminalDebt (String key) throws TerminalNotFoundException{
+    return (long)findTerminal(key).getDebt();
   }
 
 
@@ -209,8 +217,9 @@ public class Network implements Serializable {
     Communication com;
     if (type.equals("VOICE"))
       com = from.makeVoiceCall(findTerminal(to));
-    else
+    else{
       com = from.makeVideoCall(findTerminal(to));
+    }
     _communications.put(com.getId(), com);
   }
 
@@ -257,23 +266,34 @@ public class Network implements Serializable {
     findTerminal(term).addFriend(friend);
   }
 
-  public void removeFriend(String term, String friend) throws TerminalNotFoundException{
-    findTerminal(term).removeFriend(friend);
+  public void removeFriend(Terminal term, String friend) throws TerminalNotFoundException{
+    term.removeFriend(friend);
   }
 
   public void silenceTerminal(String term) throws TerminalNotFoundException, StateNotChangedException{
-    findTerminal(term).set(TerminalMode.SILENSE); //I think we cant do that cause TerminalMode is in the Core not in the App but I am too tiered to change code right now but since im kind ill still tell you hwo to do it unless its future me cuase fuck you your a fucking pussy you pussy puss fuckboy femboy. You just need to give like a string or something and it should work. either that or it is better to just have seperate mathods for all the stuff and im a big dumb dumb???
+    findTerminal(term).set(TerminalMode.SILENCE); //I think we cant do that cause TerminalMode is in the Core not in the App but I am too tiered to change code right now but since im kind ill still tell you hwo to do it unless its future me cuase fuck you your a fucking pussy you pussy puss fuckboy femboy. You just need to give like a string or something and it should work. either that or it is better to just have seperate mathods for all the stuff and im a big dumb dumb???
   }
 
-  public void turnOffTerminal(String term)throws TerminalNotFoundException, StateNotChangedException{
-    findTerminal(term).set(TerminalMode.OFF);
+  public void turnOffTerminal(String term)throws StateNotChangedException{
+    try {
+      findTerminal(term).set(TerminalMode.OFF);
+
+    }
+    catch (TerminalNotFoundException e) {}    //dont need to do anything  with it because it's only called from the terminal menu
   }
 
-  public void turnIdleTerminal(String term)throws TerminalNotFoundException, StateNotChangedException{    //On isnt a terminal mode FIXME
-    findTerminal(term).set(TerminalMode.IDLE);
+  public void turnIdleTerminal(String term)throws StateNotChangedException{    //On isnt a terminal mode FIXME
+    try {
+      findTerminal(term).set(TerminalMode.IDLE);
+
+    }
+    catch (TerminalNotFoundException a) {}
   }
 
-  public void turnBusyTerminal(String term)throws TerminalNotFoundException, StateNotChangedException{    //On isnt a terminal mode FIXME
-    findTerminal(term).set(TerminalMode.BUSY);
+  public void turnBusyTerminal(String term)throws StateNotChangedException{    //On isnt a terminal mode FIXME
+    try {
+      findTerminal(term).set(TerminalMode.BUSY);
+    }
+    catch (TerminalNotFoundException b) {}
   }
 }

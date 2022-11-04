@@ -11,23 +11,17 @@ import prr.app.exception.UnknownTerminalKeyException;
  * Turn off the terminal.
  */
 class DoTurnOffTerminal extends TerminalCommand {
-  Network _context;
 
   DoTurnOffTerminal(Network context, Terminal terminal) {
     super(Label.POWER_OFF, context, terminal);
-    _context = context;
-    addStringField("terminal", Message.terminalKey());
   }
   
   @Override
   protected final void execute() throws CommandException {
-    String terminal = stringField("terminal");
-    try {_context.turnOffTerminal(terminal);}    
-    catch (TerminalNotFoundException e) {       
-      throw new UnknownTerminalKeyException(e.getTerminal());   
-    }
+    try {_network.turnOffTerminal(_receiver.getId());}
     catch(StateNotChangedException e){
-      System.out.println(Message.alreadyOff());
+      _display.addLine(Message.alreadyOff());
+      _display.display();
     }
   }
   

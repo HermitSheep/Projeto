@@ -11,23 +11,17 @@ import prr.app.exception.UnknownTerminalKeyException;
  * Turn on the terminal.
  */
 class DoTurnOnTerminal extends TerminalCommand {
-  Network _context;
 
   DoTurnOnTerminal(Network context, Terminal terminal) {
     super(Label.POWER_ON, context, terminal);
-    _context = context;
-    addStringField("terminal", Message.terminalKey());
   }
   
   @Override
   protected final void execute() throws CommandException {
-    String terminal = stringField("terminal");
-    try {_context.turnIdleTerminal(terminal);}                //here i assume it's supposed to become iddle instead of on
-    catch (TerminalNotFoundException e) {       
-      throw new UnknownTerminalKeyException(e.getTerminal());   
-    }
+    try {_network.turnIdleTerminal(_receiver.getId());}
     catch(StateNotChangedException e){
-      System.out.println(Message.alreadyOn());
+      _display.addLine(Message.alreadyOn());
+      _display.display();
     }
   }
 }

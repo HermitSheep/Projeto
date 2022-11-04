@@ -13,4 +13,8 @@ public class UnavailableTerminalException extends Exception{
   public String getTerm() {
     return _term;
   }
+
+  public String getMode() {
+    return _mode;
+  }
 }

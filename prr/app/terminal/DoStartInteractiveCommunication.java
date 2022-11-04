@@ -36,8 +36,21 @@ class DoStartInteractiveCommunication extends TerminalCommand {
       throw new UnknownTerminalKeyException(e.getTerminal());
     }
     catch (UnavailableTerminalException a) {
-      throw new DestinationTerminalOffException(termTo);
+      if (a.getMode().equals("OFF"))
+        _display.addLine(Message.destinationIsOff(termTo));
+      else if (a.getMode().equals("SILENCE"))
+        _display.addLine(Message.destinationIsSilent(termTo));
+      else if (a.getMode().equals("BUSY"))
+      _display.addLine(Message.destinationIsBusy(termTo));
+    _display.display();
     }
-    catch (UnsuportedAtOrigin|UnsuportedAtDestination|StateNotChangedException b) {}
+    catch (UnsuportedAtDestination b) {
+      _display.addLine(Message.unsupportedAtDestination(termTo, type));
+      _display.display();
+    }
+    catch (UnsuportedAtOrigin|StateNotChangedException c) {
+      _display.addLine(Message.unsupportedAtOrigin(termTo, type));
+      _display.display();
+    }
   }
 }

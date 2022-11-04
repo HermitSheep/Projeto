@@ -14,7 +14,7 @@ import prr.app.exception.UnknownClientKeyException;
 class DoShowCommunicationsToClient extends Command<Network> {
 
   DoShowCommunicationsToClient(Network receiver) {
-    super(Label.SHOW_COMMUNICATIONS_FROM_CLIENT, receiver);
+    super(Label.SHOW_COMMUNICATIONS_TO_CLIENT, receiver);
     addStringField("client", Message.clientKey());
   }
 

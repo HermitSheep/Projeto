@@ -24,11 +24,11 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
   private static final long serialVersionUID = 202208091753L;
   protected String _id;
   protected TerminalMode _mode;
+  protected TerminalMode _previousMode;
   protected double _payments;
   protected double _debit;
   protected List<String> _friends;
   protected Client _client;                     //i should change this bacl to client, if it's usefull for the payment operations
-  protected List<Notification> _notifications;
   protected List<Communication> _failedComs;  //For putting in the failled sommunications to send notifications
   protected boolean _noComs;
   protected List<Communication> _madeCommunications;
@@ -40,11 +40,11 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
   public Terminal(String id,  Client client) {     //can an abstract class have a constructor? should it be private?~
     _id = id;
     _mode = TerminalMode.IDLE;
+    _previousMode = _mode;
     _payments = 0;
     _debit = 0;
     _friends = new ArrayList<>();
     _client = client;
-    _notifications = new ArrayList<>();
     _noComs = true;
     _failedComs = new ArrayList<>();
     _madeCommunications = new ArrayList<>();
@@ -70,6 +70,10 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
     return _mode;
   }
 
+  public TerminalMode getPreviousMode() {
+     return _previousMode;
+  }
+
   public double getPayments() {
      return _payments;
   }
@@ -84,10 +88,6 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
 
   public List<String> getFriends() {
      return _friends;
-  }
-
-  public List<Notification> getNotifications() {
-     return _notifications;
   }
 
   public boolean getNoComs() {
@@ -132,8 +132,7 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
   public Communication makeSMS(Terminal to, String msg) throws UnavailableTerminalException{
     _noComs = false;
     TEXT txt = new TEXT(msg, this, to);
-    if (!this.isActive()){
-      failedCom(txt);
+    if (!isActive()){
       throw new UnavailableTerminalException(this.getId(), this.getMode());
     }
     to.acceptSMS(this, txt);
@@ -145,7 +144,7 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
   }
 
   protected void acceptSMS(Terminal from, TEXT txt) throws UnavailableTerminalException{
-    if (!this.isActive()){
+    if (!isActive()) {
       failedCom(txt);
       throw new UnavailableTerminalException(this.getId(), this.getMode());
     }
@@ -156,6 +155,10 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
   public Communication makeVoiceCall(Terminal to) throws UnavailableTerminalException, StateNotChangedException {
     _noComs = false;
     VOICE voi = new VOICE(this, to);
+    if (!to.canStartCommunication() || to.getMode() == TerminalMode.SILENCE){
+      voi.getTo().failedCom(voi);
+      throw new UnavailableTerminalException(to.getId(), to.getMode());
+    }
     set(TerminalMode.BUSY);
     voi.setOngoing(true);
     to.acceptVoiceCall(this, voi);
@@ -166,11 +169,7 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
     return voi;
   }
 
-  protected void acceptVoiceCall(Terminal from, VOICE voi) throws UnavailableTerminalException, StateNotChangedException{
-    if (!this.canStartCommunication()){
-      failedCom(voi);
-      throw new UnavailableTerminalException(this.getId(), this.getMode());
-    }
+  protected void acceptVoiceCall(Terminal from, VOICE voi) throws StateNotChangedException{
     set(TerminalMode.BUSY);
     _noComs = false;
     _receivedCommunications.add(voi);
@@ -183,37 +182,43 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
 
   public long endOngoingComunication(int dur) throws StateNotChangedException{
     long cost;
+    Terminal to = _ongoingCom.getTo();
+    TerminalMode toPrevMod = to.getPreviousMode();
     _ongoingCom.setOngoing(false);
     _ongoingCom.setSize(dur);
     cost = computeCost(_ongoingCom);
     _ongoingCom = null;
-    set(TerminalMode.IDLE);
+    set(_previousMode);
+    to.set(toPrevMod);
     return cost;
   }
 
   public void addNotification(Notification n){
-    _notifications.add(n);
-  }
-
-  public void deleteNotifications(){
-    _notifications = new ArrayList<>();
+    _client.addNotification(n);
   }
 
   public void sendNotification(TerminalMode changeTo){
+    if (!(_mode == TerminalMode.BUSY || _mode == TerminalMode.OFF || _mode == TerminalMode.SILENCE))
+      return;
+    if ((changeTo == TerminalMode.BUSY || changeTo == TerminalMode.OFF))  
+      return;
     for (Communication c: _failedComs){
       Notification note = new Notification(c);
       note.setType(_mode, changeTo);                         //here lies progress
-      if (!(!(c.getType().equals("TEXT")) && changeTo == TerminalMode.SILENSE))
+      if (!(!(c.getType().equals("TEXT")) && changeTo == TerminalMode.SILENCE))
         note.send();    //Maybe put an exception in case it dosent send here??
     }
+    _failedComs = new ArrayList<>();
   }
 
   public void set(TerminalMode changeTo) throws StateNotChangedException{
+    if(_mode == changeTo){
+      throw new StateNotChangedException(this.getId(), _mode);} 
     sendNotification(changeTo);
-    if(_mode == changeTo)
-      throw new StateNotChangedException(this.getId(), _mode);
+    if (_mode != TerminalMode.BUSY)
+      _previousMode = _mode;
     _mode = changeTo;
-    }
+  }
 
   public void payCom(Communication com) throws CommunicationAlreadyPayedException, ComNotFoundException, NoOngoigComException{
     if (_madeCommunications.contains(com)){
@@ -258,7 +263,7 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
 
   public void addFriend(String term){
     
-    if (term != this.getId())
+    if (!term.equals(_id) && !_friends.contains(term))
       _friends.add(term);
   }
 
@@ -269,7 +274,7 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
   public void removeFriend(String term) throws TerminalNotFoundException{
     if(!_friends.contains(term))
       throw new TerminalNotFoundException(term);
-    _friends.remove(term); 
+    _friends.remove(term);
   }
 
   public String showOngoingCom() throws NoOngoigComException{

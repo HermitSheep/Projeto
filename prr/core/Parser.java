@@ -73,7 +73,7 @@ public class Parser {
     try {
       Terminal terminal = _network.registerTerminal(components[0], components[1], components[2]);
       switch(components[3]) {
-        case "SILENCE" -> terminal.set(TerminalMode.SILENSE);
+        case "SILENCE" -> terminal.set(TerminalMode.SILENCE);
         case "OFF" -> terminal.set(TerminalMode.OFF);   //alguma coisa aqui está mal
         default -> {
          if (!components[3].equals("ON"))
