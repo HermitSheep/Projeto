@@ -1,33 +1,33 @@
 *** testsBoth/A-18-05-M-ok.out	2022-10-30 22:57:56.595013000 +0000
---- testsBoth/A-18-05-M-ok.outhyp	2022-11-04 10:01:04.373782326 +0000
+--- testsBoth/A-18-05-M-ok.outhyp	2022-11-04 11:45:12.909983252 +0000
 ***************
 *** 29,35 ****
   Escolha uma opção: 9
   Número do terminal: 969008
   Tipo de comunicação a iniciar (VOICE, VIDEO): VOICE
-- O terminal de destino ('969008') está desligado.
+! O terminal de destino ('969008') está desligado.
   OPERAÇÕES DO TERMINAL
   1 - Ligar
   2 - Colocar no silêncio
---- 29,34 ----
+--- 29,35 ----
+  Escolha uma opção: 9
+  Número do terminal: 969008
+  Tipo de comunicação a iniciar (VOICE, VIDEO): VOICE
+! Iniciar comunicação: Operação inválida: O terminal de destino ('969008') está desligado.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
 ***************
 *** 38,45 ****
   5 - Retirar amigo
   6 - Pagamento
   7 - Consultar saldo
-! 8 - Enviar comunicação de texto
-! 9 - Iniciar comunicação
+- 8 - Enviar comunicação de texto
+- 9 - Iniciar comunicação
   11 - Mostrar comunicação em curso
   0 - Sair
   Escolha uma opção: 0
---- 37,43 ----
-  5 - Retirar amigo
-  6 - Pagamento
-  7 - Consultar saldo
-! 10 - Terminar comunicação activa
-  11 - Mostrar comunicação em curso
-  0 - Sair
-  Escolha uma opção: 0
+--- 38,43 ----
 ***************
 *** 68,74 ****
   0 - Sair

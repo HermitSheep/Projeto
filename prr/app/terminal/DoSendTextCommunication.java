@@ -9,7 +9,7 @@ import prr.app.exception.UnknownTerminalKeyException;
 import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.CommandException;
 import prr.core.exception.TerminalNotFoundException;
-import prr.core.exception.InactiveTerminalException;
+import prr.core.exception.UnavailableTerminalException;
 
 /**
  * Command for sending a text communication.
@@ -34,7 +34,7 @@ class DoSendTextCommunication extends TerminalCommand {
     catch (TerminalNotFoundException e) {
       throw new UnknownTerminalKeyException(e.getTerminal());     //n sei se a mensagem operação inválida é mandada
     }
-    catch (InactiveTerminalException a) {
+    catch (UnavailableTerminalException a) {
       throw new DestinationTerminalOffException(sendTo);
     }
   }

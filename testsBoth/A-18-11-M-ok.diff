@@ -1,18 +1,25 @@
 *** testsBoth/A-18-11-M-ok.out	2022-10-30 22:57:57.164609000 +0000
---- testsBoth/A-18-11-M-ok.outhyp	2022-11-04 10:01:06.161727669 +0000
+--- testsBoth/A-18-11-M-ok.outhyp	2022-11-04 11:45:15.037917155 +0000
 ***************
 *** 29,35 ****
   Escolha uma opção: 8
   Número do terminal: 969003
   Mensagem de texto a enviar: werty
-- O terminal de destino ('969003') está desligado.
+! O terminal de destino ('969003') está desligado.
   OPERAÇÕES DO TERMINAL
   1 - Ligar
   2 - Colocar no silêncio
---- 29,34 ----
+--- 29,35 ----
+  Escolha uma opção: 8
+  Número do terminal: 969003
+  Mensagem de texto a enviar: werty
+! Enviar comunicação de texto: Operação inválida: O terminal de destino ('969003') está desligado.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
 ***************
 *** 61,66 ****
---- 60,67 ----
+--- 61,68 ----
   11 - Mostrar comunicação em curso
   0 - Sair
   Escolha uma opção: 2
@@ -31,7 +38,7 @@
   11 - Mostrar comunicação em curso
   0 - Sair
   Escolha uma opção: 0
---- 70,75 ----
+--- 71,76 ----
 ***************
 *** 79,125 ****
   2 - Registar terminal
@@ -81,7 +88,7 @@
   Escolha uma opção: 0
   MENU PRINCIPAL
   1 - Abrir
---- 78,110 ----
+--- 79,111 ----
   2 - Registar terminal
   3 - Operações de terminal
   0 - Sair
@@ -104,7 +111,7 @@
 ! BASIC|969011|cli001|IDLE|0|0
 ! BASIC|969013|cli001|OFF|0|0
 ! BASIC|969014|cli002|IDLE|0|0
-! BASIC|969015|cli003|IDLE|0|10
+! BASIC|969015|cli003|IDLE|0|0
 ! GESTÃO DE TERMINAIS
 ! 1 - Mostrar todos os terminais
 ! 2 - Registar terminal

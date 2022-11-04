@@ -6,7 +6,7 @@ import prr.app.exception.UnknownTerminalKeyException;
 import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.CommandException;
 import prr.core.exception.TerminalNotFoundException;
-import prr.core.exception.InactiveTerminalException;
+import prr.core.exception.UnavailableTerminalException;
 import prr.core.exception.UnsuportedAtOrigin;
 import prr.core.exception.UnsuportedAtDestination;
 import prr.core.exception.StateNotChangedException;
@@ -35,7 +35,7 @@ class DoStartInteractiveCommunication extends TerminalCommand {
     catch (TerminalNotFoundException e) {
       throw new UnknownTerminalKeyException(e.getTerminal());
     }
-    catch (InactiveTerminalException a) {
+    catch (UnavailableTerminalException a) {
       throw new DestinationTerminalOffException(termTo);
     }
     catch (UnsuportedAtOrigin|UnsuportedAtDestination|StateNotChangedException b) {}

@@ -29,6 +29,7 @@ OPERAÇÕES DO TERMINAL
 Escolha uma opção: 8
 Número do terminal: 969003
 Mensagem de texto a enviar: werty
+Enviar comunicação de texto: Operação inválida: O terminal de destino ('969003') está desligado.
 OPERAÇÕES DO TERMINAL
 1 - Ligar
 2 - Colocar no silêncio
@@ -97,7 +98,7 @@ BASIC|969008|cli003|SILENSE|0|0
 BASIC|969011|cli001|IDLE|0|0
 BASIC|969013|cli001|OFF|0|0
 BASIC|969014|cli002|IDLE|0|0
-BASIC|969015|cli003|IDLE|0|10
+BASIC|969015|cli003|IDLE|0|0
 GESTÃO DE TERMINAIS
 1 - Mostrar todos os terminais
 2 - Registar terminal

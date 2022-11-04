@@ -76,6 +76,7 @@ OPERAÇÕES DO TERMINAL
 Escolha uma opção: 9
 Número do terminal: 969005
 Tipo de comunicação a iniciar (VOICE, VIDEO): VOICE
+Iniciar comunicação: Operação inválida: O terminal de destino ('969005') está desligado.
 OPERAÇÕES DO TERMINAL
 1 - Ligar
 2 - Colocar no silêncio
@@ -84,11 +85,10 @@ OPERAÇÕES DO TERMINAL
 5 - Retirar amigo
 6 - Pagamento
 7 - Consultar saldo
-10 - Terminar comunicação activa
 11 - Mostrar comunicação em curso
 0 - Sair
 Escolha uma opção: 11
-VOICE|2|969002|969005|0|0|ONGOING
+Não existe nenhuma comunicação em curso.
 OPERAÇÕES DO TERMINAL
 1 - Ligar
 2 - Colocar no silêncio
@@ -97,7 +97,6 @@ OPERAÇÕES DO TERMINAL
 5 - Retirar amigo
 6 - Pagamento
 7 - Consultar saldo
-10 - Terminar comunicação activa
 11 - Mostrar comunicação em curso
 0 - Sair
 Escolha uma opção: 0

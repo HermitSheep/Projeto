@@ -2,10 +2,10 @@ package prr.core.exception;
 
 import prr.core.TerminalMode;
 
-public class InactiveTerminalException extends Exception{
+public class UnavailableTerminalException extends Exception{
   String _term;
   String _mode;
-  public InactiveTerminalException(String term, TerminalMode mode) {
+  public UnavailableTerminalException(String term, TerminalMode mode) {
     _term = term;
     _mode = mode.toString();
   }

@@ -73,5 +73,4 @@ public abstract class Communication implements Serializable{
   protected abstract long computeCost(TariffPlan plan);
 
   protected abstract int getSize();       //Must return 0 if it's ongoing (acording to the tests)
-    //FIXME implement method
 }

@@ -11,7 +11,9 @@ public class TEXT extends Communication{
   protected long computeCost(TariffPlan plan) {
     long cost = plan.computeCost(_from.getClient(), this);
     _cost = cost;
-    return cost;
+    if (_from.isFriend(_to.getId()))
+      _cost /=2;
+    return _cost;
   }
 
   protected int getSize() {

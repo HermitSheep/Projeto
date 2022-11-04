@@ -200,12 +200,12 @@ public class Network implements Serializable {
 
 
 
-  public void sendTextCommunication(Terminal from, String to, String msg) throws TerminalNotFoundException, InactiveTerminalException{
+  public void sendTextCommunication(Terminal from, String to, String msg) throws TerminalNotFoundException, UnavailableTerminalException{
     Communication com = from.makeSMS(findTerminal(to), msg);
     _communications.put(com.getId(), com);
   }
 
-  public void startInteractiveCommunication(Terminal from, String to, String type) throws TerminalNotFoundException, InactiveTerminalException, UnsuportedAtOrigin, UnsuportedAtDestination, StateNotChangedException{
+  public void startInteractiveCommunication(Terminal from, String to, String type) throws TerminalNotFoundException, UnavailableTerminalException, UnsuportedAtOrigin, UnsuportedAtDestination, StateNotChangedException{
     Communication com;
     if (type.equals("VOICE"))
       com = from.makeVoiceCall(findTerminal(to));
@@ -214,7 +214,7 @@ public class Network implements Serializable {
     _communications.put(com.getId(), com);
   }
 
-  public long endInteractiveCommunication(Terminal term, double dur) throws StateNotChangedException {
+  public long endInteractiveCommunication(Terminal term, int dur) throws StateNotChangedException {
     return term.endOngoingComunication(dur);
   }
 

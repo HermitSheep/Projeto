@@ -1,12 +1,7 @@
 *** testsBoth/A-14-04-M-ok.out	2022-10-30 22:57:54.512958000 +0000
---- testsBoth/A-14-04-M-ok.outhyp	2022-11-04 10:00:58.145972711 +0000
+--- testsBoth/A-14-04-M-ok.outhyp	2022-11-04 11:45:06.910169616 +0000
 ***************
-*** 47,61 ****
-  3 - Operações de terminal
-  0 - Sair
-  Escolha uma opção: 1
-! BASIC|969001|cli001|BUSY|0|0
-  BASIC|969003|cli001|OFF|0|0
+*** 52,61 ****
   BASIC|969006|cli002|IDLE|0|0
   BASIC|969007|cli003|IDLE|0|0
   BASIC|969008|cli003|BUSY|0|0
@@ -17,12 +12,7 @@
   GESTÃO DE TERMINAIS
   1 - Mostrar todos os terminais
   2 - Registar terminal
---- 47,61 ----
-  3 - Operações de terminal
-  0 - Sair
-  Escolha uma opção: 1
-! BASIC|969001|cli001|IDLE|0|0
-  BASIC|969003|cli001|OFF|0|0
+--- 52,61 ----
   BASIC|969006|cli002|IDLE|0|0
   BASIC|969007|cli003|IDLE|0|0
   BASIC|969008|cli003|BUSY|0|0
@@ -34,24 +24,11 @@
   1 - Mostrar todos os terminais
   2 - Registar terminal
 ***************
-*** 101,107 ****
+*** 135,149 ****
+  3 - Operações de terminal
   0 - Sair
-  Escolha uma opção: 10
-  Duração da comunicação (em minutos): 1
-! Custo da comunicação: 20 unidades.
-  OPERAÇÕES DO TERMINAL
-  1 - Ligar
-  2 - Colocar no silêncio
---- 101,107 ----
-  0 - Sair
-  Escolha uma opção: 10
-  Duração da comunicação (em minutos): 1
-! Custo da comunicação: 0 unidades.
-  OPERAÇÕES DO TERMINAL
-  1 - Ligar
-  2 - Colocar no silêncio
-***************
-*** 139,149 ****
+  Escolha uma opção: 1
+! BASIC|969001|cli001|IDLE|0|0
   BASIC|969003|cli001|OFF|0|0
   BASIC|969006|cli002|IDLE|0|0
   BASIC|969007|cli003|IDLE|0|0
@@ -63,11 +40,15 @@
   GESTÃO DE TERMINAIS
   1 - Mostrar todos os terminais
   2 - Registar terminal
---- 139,149 ----
+--- 135,149 ----
+  3 - Operações de terminal
+  0 - Sair
+  Escolha uma opção: 1
+! BASIC|969001|cli001|BUSY|0|0
   BASIC|969003|cli001|OFF|0|0
   BASIC|969006|cli002|IDLE|0|0
   BASIC|969007|cli003|IDLE|0|0
-! BASIC|969008|cli003|IDLE|0|0
+! BASIC|969008|cli003|IDLE|0|20
 ! BASIC|969011|cli001|IDLE|0|0
 ! BASIC|969013|cli001|SILENSE|0|0
 ! BASIC|969014|cli002|IDLE|0|0

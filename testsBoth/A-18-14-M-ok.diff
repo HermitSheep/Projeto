@@ -1,33 +1,33 @@
 *** testsBoth/A-18-14-M-ok.out	2022-10-30 22:57:57.481248000 +0000
---- testsBoth/A-18-14-M-ok.outhyp	2022-11-04 10:01:07.137697833 +0000
+--- testsBoth/A-18-14-M-ok.outhyp	2022-11-04 11:45:16.301877894 +0000
 ***************
 *** 29,35 ****
   Escolha uma opção: 9
   Número do terminal: 969013
   Tipo de comunicação a iniciar (VOICE, VIDEO): VOICE
-- O terminal de destino ('969013') está desligado.
+! O terminal de destino ('969013') está desligado.
   OPERAÇÕES DO TERMINAL
   1 - Ligar
   2 - Colocar no silêncio
---- 29,34 ----
+--- 29,35 ----
+  Escolha uma opção: 9
+  Número do terminal: 969013
+  Tipo de comunicação a iniciar (VOICE, VIDEO): VOICE
+! Iniciar comunicação: Operação inválida: O terminal de destino ('969013') está desligado.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
 ***************
 *** 38,45 ****
   5 - Retirar amigo
   6 - Pagamento
   7 - Consultar saldo
-! 8 - Enviar comunicação de texto
-! 9 - Iniciar comunicação
+- 8 - Enviar comunicação de texto
+- 9 - Iniciar comunicação
   11 - Mostrar comunicação em curso
   0 - Sair
   Escolha uma opção: 0
---- 37,43 ----
-  5 - Retirar amigo
-  6 - Pagamento
-  7 - Consultar saldo
-! 10 - Terminar comunicação activa
-  11 - Mostrar comunicação em curso
-  0 - Sair
-  Escolha uma opção: 0
+--- 38,43 ----
 ***************
 *** 65,71 ****
   Escolha uma opção: 9
