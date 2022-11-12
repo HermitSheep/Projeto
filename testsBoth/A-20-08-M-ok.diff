@@ -1,0 +1,12 @@
+*** testsBoth/A-20-08-M-ok.out	2022-11-06 22:59:16.465059000 +0000
+--- testsBoth/A-20-08-M-ok.outhyp	2022-11-12 19:03:49.032725644 +0000
+***************
+*** 85,91 ****
+  0 - Sair
+  Escolha uma opção: 6
+  Número da comunicação: 1
+- O identificador da comunicação é inválido.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 85,90 ----

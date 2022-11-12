@@ -74,20 +74,54 @@ public class Client implements Serializable{
 
   public void addDebt(double debt) {
     _debt += debt;
+    checkUpgrade();
   }
 
   public void addPayed(double payed) {
     _payed += payed;
+    checkUpgrade();
   }
 
 
   public void addMadeCom(Communication com) {
     _madeCommunications.add(com);
+    checkUpgrade();
   }
 
   public void addReceivedCom(Communication com) {
     _receivedCommunications.add(com);
+    checkUpgrade();
   }
+
+  public void checkUpgrade(){
+    if (_level == ClientLevel.NORMAL){
+      if (_payed - _debt > 500)
+        _level = ClientLevel.GOLD;
+    }
+    if (_level == ClientLevel.GOLD){
+      if (_payed - _debt < 0)
+        _level = ClientLevel.NORMAL;
+      if(_madeCommunications.size() >= 5){
+        for (int i = -1;i == -5; i--){
+          if(!_madeCommunications.get(i).getType().equals("VIDEO"))
+            return;
+        }
+      _level = ClientLevel.PLATINUM;
+      }
+    }
+    if (_level == ClientLevel.PLATINUM){
+      if (_payed - _debt < 0)
+        _level = ClientLevel.NORMAL;
+      if(_madeCommunications.size() >= 2){
+        for (int i = -1;i == -2; i--){
+          if(!_madeCommunications.get(i).getType().equals("TEXT"))
+            return;
+        }
+      _level = ClientLevel.GOLD;
+      }
+    }
+  }
+
 
   public void turnNotiOn() throws StateNotChangedException{
     if (_notiSet)

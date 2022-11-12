@@ -1,0 +1,36 @@
+*** extraTests/Gold-Normal.out	2022-11-04 14:04:47.000000000 +0000
+--- extraTests/Gold-Normal.outhyp	2022-11-04 21:18:34.710534312 +0000
+***************
+*** 85,91 ****
+  0 - Sair
+  Escolha uma opção: 10
+  Duração da comunicação (em minutos): 55
+! Custo da comunicação: 550 unidades.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 85,91 ----
+  0 - Sair
+  Escolha uma opção: 10
+  Duração da comunicação (em minutos): 55
+! Custo da comunicação: 1100 unidades.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+***************
+*** 171,177 ****
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 7
+! Valores para o terminal '969011':540 (pagamentos),  570 (dívidas).
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 171,177 ----
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 7
+! Valores para o terminal '969011':0 (pagamentos),  1660 (dívidas).
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio

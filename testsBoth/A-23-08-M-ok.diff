@@ -1,0 +1,33 @@
+*** testsBoth/A-23-08-M-ok.out	2022-11-06 22:59:18.929178000 +0000
+--- testsBoth/A-23-08-M-ok.outhyp	2022-11-12 19:03:59.048433719 +0000
+***************
+*** 326,353 ****
+  7 - Mostrar terminais com saldo positivo
+  0 - Sair
+  Escolha uma opção: 5
+- CLIENT|cli004|Carlos Oliveira|103449|NORMAL|YES|1|0|200
+- CLIENT|cli006|Paulo Oliveira|103449|NORMAL|YES|1|0|200
+- CLIENT|cli002|Pedro Pinheiro|103447|NORMAL|YES|1|0|40
+- CLIENT|cli003|Pedro Oliveira|103449|NORMAL|YES|1|0|40
+- CLIENT|cli005|Ricardo Oliveira|103449|NORMAL|YES|1|0|40
+- CLIENT|cli001|Manuel Pinheiro|103443|NORMAL|YES|1|0|20
+- CONSULTAS
+- 1 - Mostrar todas as comunicações
+- 2 - Mostrar comunicações feitas por um cliente
+- 3 - Mostrar comunicações recebidas por um cliente
+- 4 - Mostrar clientes sem dívidas
+- 5 - Mostrar clientes com dívidas
+- 6 - Mostrar terminais sem actividade
+- 7 - Mostrar terminais com saldo positivo
+- 0 - Sair
+- Escolha uma opção: 0
+- MENU PRINCIPAL
+- 1 - Abrir
+- 2 - Guardar
+- 3 - Gestão de clientes
+- 4 - Gestão de terminais
+- 5 - Menu de consultas
+- 6 - Ver saldo global
+- 0 - Sair
+- Escolha uma opção: 0
+--- 326,328 ----

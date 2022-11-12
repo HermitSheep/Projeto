@@ -24,7 +24,7 @@ class DoAddFriend extends TerminalCommand {
 
     try {_context.addFriend(_receiver.getId(), friend);}
     catch (TerminalNotFoundException e) {       
-      throw new UnknownTerminalKeyException(e.getTerminal());   //the teach made this one and didnt make a constructur that takes exceptions, so fuck it
+      throw new UnknownTerminalKeyException(e.getTerminal());
     }
   }
 }

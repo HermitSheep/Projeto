@@ -1,0 +1,22 @@
+*** testsBoth/A-22-04-M-ok.out	2022-11-06 22:59:17.705660000 +0000
+--- testsBoth/A-22-04-M-ok.outhyp	2022-11-12 19:03:54.920554034 +0000
+***************
+*** 82,88 ****
+  0 - Sair
+  Escolha uma opção: 3
+  Identificador do cliente: cli002
+- VOICE|1|969011|969014|1|20|FINISHED
+  CONSULTAS
+  1 - Mostrar todas as comunicações
+  2 - Mostrar comunicações feitas por um cliente
+--- 82,87 ----
+***************
+*** 94,99 ****
+--- 93,99 ----
+  0 - Sair
+  Escolha uma opção: 3
+  Identificador do cliente: cli001
++ VOICE|1|969011|969014|1|20|FINISHED
+  CONSULTAS
+  1 - Mostrar todas as comunicações
+  2 - Mostrar comunicações feitas por um cliente

@@ -78,10 +78,6 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
      return _payments;
   }
 
-  public double getDebit() {
-     return _debit;
-  }
-
   public Client getClient() {
      return _client;
   }
@@ -221,16 +217,17 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
   }
 
   public void payCom(Communication com) throws CommunicationAlreadyPayedException, ComNotFoundException, NoOngoigComException{
-    if (_madeCommunications.contains(com)){
-      if (!com.isPayed())
-        throw new CommunicationAlreadyPayedException();
-      if (com.getIsOngoing())
-        throw new NoOngoigComException();
-      _payments += com.getCost();
-      _debit -= com.getCost();
-      com.payCom();
-    }
-    else throw new ComNotFoundException(com.getId());
+    if (!_madeCommunications.contains(com))
+      throw new ComNotFoundException(com.getId());
+    if (!com.isPayed())
+      throw new CommunicationAlreadyPayedException();
+    if (!com.getIsOngoing())
+      throw new NoOngoigComException(); //should be a sort of "ComOngoingException", but that doesnt exist and this should make do
+    _payments += com.getCost();
+    _debit -= com.getCost();
+    _client.addPayed(com.getCost());
+    _client.addDebt(-com.getCost());
+    com.payCom();
   }
    
   

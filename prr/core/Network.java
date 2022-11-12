@@ -194,20 +194,9 @@ public class Network implements Serializable {
     return res;
   }
 
-  public long getTerminalPayment(String key) throws TerminalNotFoundException{
-    return (long)findTerminal(key).getPayments();
-  }
-
-  public long getTerminalDebt (String key) throws TerminalNotFoundException{
-    return (long)findTerminal(key).getDebt();
-  }
-
-
-
   
 
-
-
+  
   public void sendTextCommunication(Terminal from, String to, String msg) throws TerminalNotFoundException, UnavailableTerminalException{
     Communication com = from.makeSMS(findTerminal(to), msg);
     _communications.put(com.getId(), com);
@@ -242,6 +231,25 @@ public class Network implements Serializable {
       lines.add(_communications.get(com).toString());
     }
     return lines;
+  }
+
+
+  public long globalDebts() {
+    Set<String> clis = _clients.keySet();
+    long debt = 0;
+    for (String cli : clis) {
+      debt += _clients.get(cli).getDebt();
+    }
+    return debt;
+  }
+
+  public long globalPayed() {
+    Set<String> clis = _clients.keySet();
+    long payed = 0;
+    for (String cli : clis) {
+      payed += _clients.get(cli).getPayed();
+    }
+    return payed;
   }
 
 

@@ -22,8 +22,12 @@ class DoPerformPayment extends TerminalCommand {
     int com = integerField("com");
 
     try {_receiver.payCom(_network.findCom(com));}    
-    catch (ComNotFoundException|NoOngoigComException|CommunicationAlreadyPayedException e) {       
-      _display.addLine(Message.invalidCommunication()); 
+    catch (ComNotFoundException e) {       
+      _display.addLine(Message.invalidCommunication());
+      _display.display();
+    }
+    catch (NoOngoigComException|CommunicationAlreadyPayedException a) {
+      
     }
   }
 }

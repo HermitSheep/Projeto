@@ -1,0 +1,29 @@
+*** testsBoth/A-26-03-M-ok.out	2022-11-06 22:59:20.589665000 +0000
+--- testsBoth/A-26-03-M-ok.outhyp	2022-11-12 19:04:06.120227601 +0000
+***************
+*** 142,148 ****
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 7
+! Valores para o terminal '969002':490 (pagamentos),  500 (dívidas).
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 142,148 ----
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 7
+! Valores para o terminal '969002':0 (pagamentos),  990 (dívidas).
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+***************
+*** 230,236 ****
+  7 - Mostrar terminais com saldo positivo
+  0 - Sair
+  Escolha uma opção: 7
+- FANCY|969006|cli003|IDLE|10|0
+  CONSULTAS
+  1 - Mostrar todas as comunicações
+  2 - Mostrar comunicações feitas por um cliente
+--- 230,235 ----

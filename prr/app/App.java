@@ -8,7 +8,7 @@ import pt.tecnico.uilib.Dialog;
  * Application entry-point.
  */
 public class App {
-
+//We apologize for all the pourly written convuluted code and the less then helpfull comments. Thank you teachers you guys were great :D
   public static void main(String[] args) {
     try (var ui = Dialog.UI) {
       var receiver = new NetworkManager();

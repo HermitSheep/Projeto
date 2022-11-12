@@ -1,0 +1,19 @@
+*** extraTests/Normal-Gold.out	2022-11-04 14:04:47.000000000 +0000
+--- extraTests/Normal-Gold.outhyp	2022-11-04 21:18:35.214517951 +0000
+***************
+*** 85,91 ****
+  0 - Sair
+  Escolha uma opção: 10
+  Duração da comunicação (em minutos): 1
+! Custo da comunicação: 10 unidades.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 85,91 ----
+  0 - Sair
+  Escolha uma opção: 10
+  Duração da comunicação (em minutos): 1
+! Custo da comunicação: 20 unidades.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio

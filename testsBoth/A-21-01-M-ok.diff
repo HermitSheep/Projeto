@@ -1,0 +1,12 @@
+*** testsBoth/A-21-01-M-ok.out	2022-11-06 22:59:16.733711000 +0000
+--- testsBoth/A-21-01-M-ok.outhyp	2022-11-12 19:03:50.572680759 +0000
+***************
+*** 68,74 ****
+  0 - Sair
+  Escolha uma opção: 2
+  Identificador do cliente: cli002
+- TEXT|1|969014|969015|5|10|FINISHED
+  CONSULTAS
+  1 - Mostrar todas as comunicações
+  2 - Mostrar comunicações feitas por um cliente
+--- 68,73 ----

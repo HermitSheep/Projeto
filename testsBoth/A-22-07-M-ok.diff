@@ -1,0 +1,17 @@
+*** testsBoth/A-22-07-M-ok.out	2022-11-06 22:59:18.033489000 +0000
+--- testsBoth/A-22-07-M-ok.outhyp	2022-11-12 19:03:55.872526286 +0000
+***************
+*** 279,290 ****
+  0 - Sair
+  Escolha uma opção: 3
+  Identificador do cliente: cli001
+- VOICE|1|969014|969013|1|20|FINISHED
+- VOICE|2|969007|969011|1|20|FINISHED
+- TEXT|3|969007|969011|6|10|FINISHED
+- VOICE|4|969015|969001|1|20|FINISHED
+- VOICE|5|969014|969011|1|20|FINISHED
+- TEXT|6|969007|969001|6|10|FINISHED
+  CONSULTAS
+  1 - Mostrar todas as comunicações
+  2 - Mostrar comunicações feitas por um cliente
+--- 279,284 ----

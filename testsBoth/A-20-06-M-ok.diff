@@ -1,0 +1,53 @@
+*** testsBoth/A-20-06-M-ok.out	2022-11-06 22:59:16.282188000 +0000
+--- testsBoth/A-20-06-M-ok.outhyp	2022-11-12 19:03:47.952757121 +0000
+***************
+*** 99,105 ****
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 7
+! Valores para o terminal '969011':90 (pagamentos),  40 (dívidas).
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 99,105 ----
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 7
+! Valores para o terminal '969011':0 (pagamentos),  130 (dívidas).
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+***************
+*** 127,133 ****
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 7
+! Valores para o terminal '969011':130 (pagamentos),  0 (dívidas).
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 127,133 ----
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 7
+! Valores para o terminal '969011':0 (pagamentos),  130 (dívidas).
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+***************
+*** 200,206 ****
+  0 - Sair
+  Escolha uma opção: 6
+  Identificador do cliente: cli001
+! Valores para o cliente 'cli001':130 (pagamentos),  0 (dívidas).
+  GESTÃO DE CLIENTES
+  1 - Visualizar cliente
+  2 - Visualizar todos os clientes
+--- 200,206 ----
+  0 - Sair
+  Escolha uma opção: 6
+  Identificador do cliente: cli001
+! Valores para o cliente '" + key + "':0 (pagamentos),  130 (dívidas).
+  GESTÃO DE CLIENTES
+  1 - Visualizar cliente
+  2 - Visualizar todos os clientes

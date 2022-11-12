@@ -1,0 +1,19 @@
+*** testsBoth/A-20-04-M-ok.out	2022-11-06 22:59:16.061787000 +0000
+--- testsBoth/A-20-04-M-ok.outhyp	2022-11-12 19:03:46.588796875 +0000
+***************
+*** 56,62 ****
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 7
+! Valores para o terminal '969001':10 (pagamentos),  0 (dívidas).
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 56,62 ----
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: 7
+! Valores para o terminal '969001':0 (pagamentos),  10 (dívidas).
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
