@@ -30,5 +30,9 @@ class DoEndInteractiveCommunication extends TerminalCommand {
     catch (StateNotChangedException e) {
       //do something FIXME
     }
+    catch (NoOngoigComException a) {
+      _display.addLine(Message.noOngoingCommunication());
+      _display.display();
+    }
   }
 }

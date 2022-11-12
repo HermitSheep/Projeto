@@ -176,8 +176,10 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
 
   protected abstract void acceptVideoCall(Terminal from, VIDEO vid) throws UnsuportedAtDestination, StateNotChangedException, UnavailableTerminalException;
 
-  public long endOngoingComunication(int dur) throws StateNotChangedException{
+  public long endOngoingComunication(int dur) throws StateNotChangedException, NoOngoigComException{  //shouldn it throw a noOngoingCom?
     long cost;
+    if (_ongoingCom == null)
+      throw new NoOngoigComException();
     Terminal to = _ongoingCom.getTo();
     TerminalMode toPrevMod = to.getPreviousMode();
     _ongoingCom.setOngoing(false);
@@ -219,14 +221,16 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
   public void payCom(Communication com) throws CommunicationAlreadyPayedException, ComNotFoundException, NoOngoigComException{
     if (!_madeCommunications.contains(com))
       throw new ComNotFoundException(com.getId());
-    if (!com.isPayed())
+    if (com.isPayed())
       throw new CommunicationAlreadyPayedException();
-    if (!com.getIsOngoing())
+    if (com.getIsOngoing())
       throw new NoOngoigComException(); //should be a sort of "ComOngoingException", but that doesnt exist and this should make do
-    _payments += com.getCost();
-    _debit -= com.getCost();
-    _client.addPayed(com.getCost());
-    _client.addDebt(-com.getCost());
+
+    double cost = com.getCost();
+    _payments += cost;
+    _debit -= cost;
+    _client.addPayed(cost);
+    _client.addDebt(-cost);
     com.payCom();
   }
    

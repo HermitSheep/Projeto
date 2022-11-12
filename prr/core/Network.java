@@ -212,7 +212,7 @@ public class Network implements Serializable {
     _communications.put(com.getId(), com);
   }
 
-  public long endInteractiveCommunication(Terminal term, int dur) throws StateNotChangedException {
+  public long endInteractiveCommunication(Terminal term, int dur) throws StateNotChangedException, NoOngoigComException {
     return term.endOngoingComunication(dur);
   }
 
