@@ -124,6 +124,31 @@ public class Network implements Serializable {
     return findClient(key).getDebt();
   }
 
+  public List<Client> sortClientsBalance(int sign) {
+    Set<String> keys = _clients.keySet();
+    List<Client> listClients = new ArrayList<Client>();
+    for (String key : keys){
+      long balance = _clients.get(key).getPayed() - _clients.get(key).getDebt();
+      if (sign == 1 && balance < 0)
+        listClients.add(_clients.get(key));
+      else if (sign == 0 && balance >= 0)
+        listClients.add(_clients.get(key));
+    }
+    listClients.sort(new ClientComparator());
+    //Collections.reverse(listClients);
+    return listClients;
+  }
+
+  public List<String> clientsByBalance(int sign) {
+    List<String> clis = new ArrayList<String>();
+    List<Client> sorted = sortClientsBalance(sign);
+    for (Client cli : sorted) {
+      clis.add(cli.toString());
+    }
+    return clis;
+  }
+
+
 
 
 

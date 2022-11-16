@@ -16,10 +16,12 @@ class DoShowClientsWithoutDebts extends Command<Network> {
 
   @Override
   protected final void execute() throws CommandException {
-    List<String> lines = _receiver.clientsToString();
-    for (String line : lines){
-      String[] argh = line.split("\\|");
-      if (Integer.parseInt(argh[8]) - Integer.parseInt(argh[9]) >= 0) //pos 8 = Pagamento; pos 9 = Dividas
+    List<String> lines = _receiver.clientsByBalance(0);
+    String[] argh = new String[20];
+    for (int i = lines.size(); i-- > 0; ) {
+      String line = lines.get(i);
+      argh = line.split("\\|");
+      if (Integer.parseInt(argh[7]) - Integer.parseInt(argh[8]) >= 0) //pos 8 = Pagamento; pos 9 = Dividas
         _display.addLine(line);
     }
     _display.display();

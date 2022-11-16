@@ -13,6 +13,7 @@ public class FANCY extends Terminal {
     VIDEO vid = new VIDEO(this, to);
     if (!to.canStartCommunication() || to.getMode() == TerminalMode.SILENCE){
       vid.getTo().failedCom(vid);
+      vid.permaDeleteCom();       //very scuffed patch, it sets the global com counter back by 1. Only use this in this specific situation
       throw new UnavailableTerminalException(to.getId(), to.getMode());
     }
     if (to.getType().equals("BASIC"))

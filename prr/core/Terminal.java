@@ -127,10 +127,10 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
   
   public Communication makeSMS(Terminal to, String msg) throws UnavailableTerminalException{
     _noComs = false;
-    TEXT txt = new TEXT(msg, this, to);
     if (!isActive()){
       throw new UnavailableTerminalException(this.getId(), this.getMode());
     }
+    TEXT txt = new TEXT(msg, this, to);
     to.acceptSMS(this, txt);
     computeCost(txt);
     _madeCommunications.add(txt);
@@ -153,6 +153,7 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
     VOICE voi = new VOICE(this, to);
     if (!to.canStartCommunication() || to.getMode() == TerminalMode.SILENCE){
       voi.getTo().failedCom(voi);
+      voi.permaDeleteCom();       //very scuffed patch, it sets the global com counter back by 1. Only use this in this specific situation
       throw new UnavailableTerminalException(to.getId(), to.getMode());
     }
     set(TerminalMode.BUSY);

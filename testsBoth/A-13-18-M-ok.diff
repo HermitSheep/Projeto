@@ -1,0 +1,19 @@
+*** testsBoth/A-13-18-M-ok.out	2022-11-06 22:59:09.373771000 +0000
+--- testsBoth/A-13-18-M-ok.outhyp	2022-11-13 17:18:07.680348473 +0000
+***************
+*** 286,292 ****
+  6 - Mostrar saldo de cliente
+  0 - Sair
+  Escolha uma opção: 2
+! CLIENT|cli001|Manuel Pinheiro|103443|NORMAL|YES|4|520|540
+  CLIENT|cli002|Pedro Pinheiro|103447|NORMAL|YES|2|0|0
+  CLIENT|cli003|Pedro Oliveira|103449|NORMAL|YES|3|0|0
+  CLIENT|cli201|Ludgero Oliveira|103440|NORMAL|YES|0|0|0
+--- 286,292 ----
+  6 - Mostrar saldo de cliente
+  0 - Sair
+  Escolha uma opção: 2
+! CLIENT|cli001|Manuel Pinheiro|103443|GOLD|YES|4|520|540
+  CLIENT|cli002|Pedro Pinheiro|103447|NORMAL|YES|2|0|0
+  CLIENT|cli003|Pedro Oliveira|103449|NORMAL|YES|3|0|0
+  CLIENT|cli201|Ludgero Oliveira|103440|NORMAL|YES|0|0|0

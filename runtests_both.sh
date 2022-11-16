@@ -7,7 +7,7 @@ for x in testsBoth/*.in; do
     if [ -e ${x%.in}.import ]; then
         java -cp :po-uilib.jar:. -Dimport=${x%.in}.import -Din=$x -DwriteInput=true -Dout=${x%.in}.outhyp prr.app.App;
     else
-        java -cp po-uilib.jar:. -Din=$x -writeInput=true -Dout=${x%.in}.outhyp prr.app.App;
+        java -cp po-uilib.jar:. -Din=$x -DwriteInput=true -Dout=${x%.in}.outhyp prr.app.App;
     fi
 
     diff -cwB ${x%.in}.out ${x%.in}.outhyp > ${x%.in}.diff ;

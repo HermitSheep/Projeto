@@ -61,6 +61,10 @@ public abstract class Communication implements Serializable{
     _cost = cost;
   }
 
+  public void permaDeleteCom(){ //only ever use when com creation fails/you send a com you've already created to an in-scope trash bin. Sry for the scyffed patch
+    _totalComs --;
+  }
+
   public String toString() {
     String com = (this.getClass().getSimpleName() + "|" + _id + "|" + _from.getId() + "|" +
     _to.getId() + "|" + getSize() + "|" + Math.round(_cost) + "|");
