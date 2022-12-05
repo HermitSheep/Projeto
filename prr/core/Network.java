@@ -25,6 +25,48 @@ public class Network implements Serializable {
   public Network() {
   }
 
+  public List<String> removeTerminals (int coms) {
+    List<String> listTerms = new ArrayList<String>();
+    Set<String> keys = _terminals.keySet();
+    int numTerms = 0;
+    for (String key : keys)
+      if (_terminals.get(key).getNumComs() < coms) {
+        listTerms.add(_terminals.get(key).terminalToString());
+        _terminals.remove(key);
+        numTerms ++;
+      }
+      String a = "" + numTerms;
+      listTerms.add(a);
+    return listTerms;
+  }
+
+  public List<String> ClientBestBasic () throws IOException {
+    Set<String> keys = _clients.keySet();
+    List<String> res = new ArrayList<String>();
+    String best;
+    int num = 0;
+    int big = 0;
+    for (String key : keys){
+      for (Terminal term : _clients.get(key).getTerminals())
+        if (term.getType().equals("BASIC"))
+          num ++;
+      if (num >= big) {
+        best = key;
+        big = num;
+      }
+    }
+    try{
+    res.add(_clients.get(best).toString());   //isto devia estar envolvido num try catch para prevenir crash, se for lançado erro o comando apanha e emite a mensagem não há clientes com terminais basic
+    }
+    catch (Exception a) {
+      throw new IOException();
+    }
+    String a = "" + big;
+    res.add(a);
+    return res;
+  }
+
+
   public TreeMap<String, Terminal> getTerminals() {
     return _terminals;
   }
@@ -124,31 +166,6 @@ public class Network implements Serializable {
     return findClient(key).getDebt();
   }
 
-  public List<Client> sortClientsBalance(int sign) {
-    Set<String> keys = _clients.keySet();
-    List<Client> listClients = new ArrayList<Client>();
-    for (String key : keys){
-      long balance = _clients.get(key).getPayed() - _clients.get(key).getDebt();
-      if (sign == 1 && balance < 0)
-        listClients.add(_clients.get(key));
-      else if (sign == 0 && balance >= 0)
-        listClients.add(_clients.get(key));
-    }
-    listClients.sort(new ClientComparator());
-    //Collections.reverse(listClients);
-    return listClients;
-  }
-
-  public List<String> clientsByBalance(int sign) {
-    List<String> clis = new ArrayList<String>();
-    List<Client> sorted = sortClientsBalance(sign);
-    for (Client cli : sorted) {
-      clis.add(cli.toString());
-    }
-    return clis;
-  }
-
-
 
 
 
@@ -219,9 +236,20 @@ public class Network implements Serializable {
     return res;
   }
 
-  
+  public long getTerminalPayment(String key) throws TerminalNotFoundException{
+    return (long)findTerminal(key).getPayments();
+  }
+
+  public long getTerminalDebt (String key) throws TerminalNotFoundException{
+    return (long)findTerminal(key).getDebt();
+  }
+
+
 
   
+
+
+
   public void sendTextCommunication(Terminal from, String to, String msg) throws TerminalNotFoundException, UnavailableTerminalException{
     Communication com = from.makeSMS(findTerminal(to), msg);
     _communications.put(com.getId(), com);
@@ -237,7 +265,9 @@ public class Network implements Serializable {
     _communications.put(com.getId(), com);
   }
 
-  public long endInteractiveCommunication(Terminal term, int dur) throws StateNotChangedException, NoOngoigComException {
+  public long endInteractiveCommunication(Terminal term, int dur) throws StateNotChangedException, TerminalNotFoundException {
+    if (dur <= 0)
+      throw new TerminalNotFoundException(term.getId());
     return term.endOngoingComunication(dur);
   }
 
@@ -256,25 +286,6 @@ public class Network implements Serializable {
       lines.add(_communications.get(com).toString());
     }
     return lines;
-  }
-
-
-  public long globalDebts() {
-    Set<String> clis = _clients.keySet();
-    long debt = 0;
-    for (String cli : clis) {
-      debt += _clients.get(cli).getDebt();
-    }
-    return debt;
-  }
-
-  public long globalPayed() {
-    Set<String> clis = _clients.keySet();
-    long payed = 0;
-    for (String cli : clis) {
-      payed += _clients.get(cli).getPayed();
-    }
-    return payed;
   }
 
 

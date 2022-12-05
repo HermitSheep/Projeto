@@ -5,6 +5,14 @@ package prr.app.main;
  */
 interface Message {
 
+  static String terminalKey() {
+    return "Número do terminal: ";
+  }
+
+  static String coms() {
+    return "Número minimo de coms: ";
+  }
+
   /**
    * @return string with "file not found" message.
    */

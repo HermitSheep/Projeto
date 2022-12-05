@@ -16,12 +16,11 @@ class DoShowClientsWithDebts extends Command<Network> {
 
   @Override
   protected final void execute() throws CommandException {
-    List<String> lines = _receiver.clientsByBalance(1);
-    String[] argh = new String[20];
-    for (int i = lines.size(); i-- > 0; ) {
-      String line = lines.get(i);
+    List<String> lines = _receiver.clientsToString();
+    String[] argh;
+    for (String line : lines){
       argh = line.split("\\|");
-      if (Integer.parseInt(argh[7]) - Integer.parseInt(argh[8]) < 0)      //FIXME something is breaking here
+      if ((Integer.parseInt(argh[8]) - Integer.parseInt(argh[9]) < 0))
         _display.addLine(line);
     }
     _display.display();

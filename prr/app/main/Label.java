@@ -25,4 +25,6 @@ interface Label {
   
   /** §4.1.3. Show global balance. */
   String SHOW_GLOBAL_BALANCE = "Ver saldo global";
+
+  String REMOVE_TERMINAL = "Remover terminais";
 }

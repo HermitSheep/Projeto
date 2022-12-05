@@ -94,16 +94,15 @@ public class Client implements Serializable{
   }
 
   public void checkUpgrade(){
-    long balance = _payed - _debt;
     if (_level == ClientLevel.NORMAL){
-      if (balance > 500)
+      if (_payed - _debt > 500)
         _level = ClientLevel.GOLD;
     }
     if (_level == ClientLevel.GOLD){
-      if (balance < 0)
+      if (_payed - _debt < 0)
         _level = ClientLevel.NORMAL;
       if(_madeCommunications.size() >= 5){
-        for (int i = -1; i == -5; i--){     //i rly hope this works
+        for (int i = -1;i == -5; i--){
           if(!_madeCommunications.get(i).getType().equals("VIDEO"))
             return;
         }
@@ -111,10 +110,10 @@ public class Client implements Serializable{
       }
     }
     if (_level == ClientLevel.PLATINUM){
-      if (balance < 0)
+      if (_payed - _debt < 0)
         _level = ClientLevel.NORMAL;
       if(_madeCommunications.size() >= 2){
-        for (int i = -1; i == -2; i--){
+        for (int i = -1;i == -2; i--){
           if(!_madeCommunications.get(i).getType().equals("TEXT"))
             return;
         }

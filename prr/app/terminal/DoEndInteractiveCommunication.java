@@ -1,5 +1,7 @@
 package prr.app.terminal;
 
+import java.security.InvalidKeyException;
+
 import prr.core.Network;
 import prr.core.Terminal;
 //import pt.tecnico.uilib.forms.Form;
@@ -7,6 +9,8 @@ import pt.tecnico.uilib.menus.CommandException;
 import prr.core.exception.cantEndComException;
 import prr.core.exception.NoOngoigComException;
 import prr.core.exception.StateNotChangedException;
+import prr.core.exception.TerminalNotFoundException;
+import prr.app.exception.InvalidTerminalKeyException;
 
 /**
  * Command for ending communication.
@@ -30,9 +34,8 @@ class DoEndInteractiveCommunication extends TerminalCommand {
     catch (StateNotChangedException e) {
       //do something FIXME
     }
-    catch (NoOngoigComException a) {
-      _display.addLine(Message.noOngoingCommunication());
-      _display.display();
+    catch (TerminalNotFoundException a) {
+      throw new InvalidTerminalKeyException(_receiver.getId());
     }
   }
 }

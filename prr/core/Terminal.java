@@ -58,6 +58,10 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
       throw new InvalidTerminalIdException(id);
   }
 
+  public int getNumComs(){
+    return _madeCommunications.size() + _receivedCommunications.size();
+  }
+
   public String getId() {
      return _id;
   }
@@ -76,6 +80,10 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
 
   public double getPayments() {
      return _payments;
+  }
+
+  public double getDebit() {
+     return _debit;
   }
 
   public Client getClient() {
@@ -127,10 +135,10 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
   
   public Communication makeSMS(Terminal to, String msg) throws UnavailableTerminalException{
     _noComs = false;
+    TEXT txt = new TEXT(msg, this, to);
     if (!isActive()){
       throw new UnavailableTerminalException(this.getId(), this.getMode());
     }
-    TEXT txt = new TEXT(msg, this, to);
     to.acceptSMS(this, txt);
     computeCost(txt);
     _madeCommunications.add(txt);
@@ -153,7 +161,6 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
     VOICE voi = new VOICE(this, to);
     if (!to.canStartCommunication() || to.getMode() == TerminalMode.SILENCE){
       voi.getTo().failedCom(voi);
-      voi.permaDeleteCom();       //very scuffed patch, it sets the global com counter back by 1. Only use this in this specific situation
       throw new UnavailableTerminalException(to.getId(), to.getMode());
     }
     set(TerminalMode.BUSY);
@@ -177,10 +184,8 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
 
   protected abstract void acceptVideoCall(Terminal from, VIDEO vid) throws UnsuportedAtDestination, StateNotChangedException, UnavailableTerminalException;
 
-  public long endOngoingComunication(int dur) throws StateNotChangedException, NoOngoigComException{  //shouldn it throw a noOngoingCom?
+  public long endOngoingComunication(int dur) throws StateNotChangedException{
     long cost;
-    if (_ongoingCom == null)
-      throw new NoOngoigComException();
     Terminal to = _ongoingCom.getTo();
     TerminalMode toPrevMod = to.getPreviousMode();
     _ongoingCom.setOngoing(false);
@@ -220,19 +225,16 @@ public abstract class Terminal implements Serializable /* FIXME maybe addd more 
   }
 
   public void payCom(Communication com) throws CommunicationAlreadyPayedException, ComNotFoundException, NoOngoigComException{
-    if (!_madeCommunications.contains(com))
-      throw new ComNotFoundException(com.getId());
-    if (com.isPayed())
-      throw new CommunicationAlreadyPayedException();
-    if (com.getIsOngoing())
-      throw new NoOngoigComException(); //should be a sort of "ComOngoingException", but that doesnt exist and this should make do
-
-    double cost = com.getCost();
-    _payments += cost;
-    _debit -= cost;
-    _client.addPayed(cost);
-    _client.addDebt(-cost);
-    com.payCom();
+    if (_madeCommunications.contains(com)){
+      if (!com.isPayed())
+        throw new CommunicationAlreadyPayedException();
+      if (com.getIsOngoing())
+        throw new NoOngoigComException();
+      _payments += com.getCost();
+      _debit -= com.getCost();
+      com.payCom();
+    }
+    else throw new ComNotFoundException(com.getId());
   }
    
   

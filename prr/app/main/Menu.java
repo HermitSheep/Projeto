@@ -14,7 +14,9 @@ public final class Menu extends pt.tecnico.uilib.menus.Menu {
           new DoOpenMenuClient(receiver),
           new DoOpenMenuTerminal(receiver),
           new DoOpenMenuLookups(receiver),
-          new DoShowGlobalBalance(receiver.getNetwork())//
+          new DoShowGlobalBalance(receiver.getNetwork()),//
+          new DoRemoveTerminals(receiver),
+          new DoShowBestClientBasic(receiver)
           );
   }
 }
